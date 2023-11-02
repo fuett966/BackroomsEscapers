@@ -84,7 +84,7 @@ MonoBehaviour:
       supportFabricConvolution: 0
       maxDirectionalLightsOnScreen: 16
       maxPunctualLightsOnScreen: 512
-      maxAreaLightsOnScreen: 64
+      maxAreaLightsOnScreen: 32
       maxCubeReflectionOnScreen: 48
       maxPlanarReflectionOnScreen: 16
       maxDecalsOnScreen: 512
@@ -92,7 +92,7 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 32
       maxLocalVolumetricFogOnScreen: 64
     hdShadowInitParams:
-      maxShadowRequests: 128
+      maxShadowRequests: 64
       directionalShadowsDepthBits: 32
       shadowFilteringQuality: 1
       areaShadowFilteringQuality: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
       ChromaticAberrationMaxSamples: 03000000060000000c000000
     lightSettings:
       useContactShadow:
-        m_Values: 000001
+        m_Values: 000100
         m_SchemaId:
           m_Id: With3Levels
     maximumLODLevel:
