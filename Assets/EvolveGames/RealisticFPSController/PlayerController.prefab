@@ -1180,6 +1180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a605aa1aa281f24a860449f9f60a2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   Camera: {fileID: 4582019823802981677}
   Items: {fileID: 4434987455403460021}
   walkingSpeed: 3
