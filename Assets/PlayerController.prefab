@@ -282,6 +282,113 @@ Transform:
   - {fileID: 7383074296552494397}
   m_Father: {fileID: 7063735259536741190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2068504236850472035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412053205934834203}
+  - component: {fileID: 8489759892806345345}
+  - component: {fileID: 1777824908556235009}
+  - component: {fileID: 4251901902963042059}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1412053205934834203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068504236850472035}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6369994276818437729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8489759892806345345
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068504236850472035}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1777824908556235009
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068504236850472035}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &4251901902963042059
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068504236850472035}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000003
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: -0.000009536749, y: 0, z: -0.0000002384196}
 --- !u!1 &2154934579853067766
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +629,7 @@ GameObject:
   - component: {fileID: 3279486357434408820}
   - component: {fileID: 3261615004090721374}
   - component: {fileID: -4242008452364502442}
+  - component: {fileID: 9219563331723069919}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: GameController
@@ -544,6 +652,7 @@ Transform:
   m_Children:
   - {fileID: 8817969214770802119}
   - {fileID: 7454757942544962791}
+  - {fileID: 1412053205934834203}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -109.095, z: 0}
 --- !u!143 &8853919343704383235
@@ -584,7 +693,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a605aa1aa281f24a860449f9f60a2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 8817969214770802119}
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: -4242008452364502442}
+  CameraHolder: {fileID: 8817969214770802119}
+  MovementFX: {fileID: 4990850931594530112}
   Items: {fileID: 427929341657498946}
   walkingSpeed: 6.9
   CroughSpeed: 3.05
@@ -605,9 +718,10 @@ MonoBehaviour:
   HideDistance: 4
   LayerMaskInt: 1
   CroughKey: 306
-  characterController: {fileID: 0}
+  characterController: {fileID: 8853919343704383235}
   moveDirection: {x: 0, y: 0, z: 0}
   isRunning: 0
+  cam: {fileID: 7596653431523891765}
   Moving: 0
   vertical: 0
   horizontal: 0
@@ -680,7 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: -4242008452364502442}
   _networkObjectCache: {fileID: -4242008452364502442}
   _componentConfiguration: 0
@@ -729,23 +843,42 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
+  - {fileID: 5286471122109054462}
   - {fileID: 3261615004090721374}
+  - {fileID: 9219563331723069919}
+  - {fileID: 182182276426827144}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 21.82224, y: 4.13, z: 3.48}
-    Rotation: {x: -0, y: -0.8145949, z: -0, w: 0.5800303}
+    Rotation: {x: 0, y: -0.81459665, z: 0, w: 0.58002794}
     LocalScale: {x: 3.504193, y: 3.504193, z: 3.504193}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 2578332039
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14188000825934897897
+--- !u!114 &9219563331723069919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3399040941058172900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3171a06fe54da4d44b74a8200fc83b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: -4242008452364502442}
+  cameraMain: {fileID: 4384034425115985474}
 --- !u!1 &3816519623947690910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1231,7 @@ MonoBehaviour:
   Smooth: 15.4
   EnabledRotationMovement: 1
   RotationMultipler: 6
+  player: {fileID: 8853919343704383235}
 --- !u!1 &4150799459413849453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1369,7 @@ GameObject:
   - component: {fileID: 2211658649487037258}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1263,7 +1397,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4384034425115985474}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1314,7 +1448,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4384034425115985474}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &6677176262836689853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,6 +1468,7 @@ MonoBehaviour:
   EnabledRoationMovement: 1
   RoationMovementSmooth: 10
   RoationMovementAmount: 3
+  player: {fileID: 8853919343704383235}
 --- !u!114 &1218724192050243735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2432,6 +2567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e0f19fa1cd61548b858063b9fe8d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: -4242008452364502442}
   CharakterC: {fileID: 8853919343704383235}
   smooth: 4
   amount: 0.077

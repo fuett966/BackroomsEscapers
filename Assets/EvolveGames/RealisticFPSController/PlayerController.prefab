@@ -726,6 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e0f19fa1cd61548b858063b9fe8d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   CharakterC: {fileID: 4582019824381016679}
   smooth: 4
   amount: 0.077
@@ -842,6 +845,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea1fc3719a9e9443a42c8833cf84ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   Enabled: 1
   Amount: 0.0076
   SprintAmount: 1.4
@@ -849,6 +855,7 @@ MonoBehaviour:
   Smooth: 15.4
   EnabledRotationMovement: 1
   RotationMultipler: 6
+  player: {fileID: 0}
 --- !u!1 &4582019822591254244
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +963,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabda559814d30d45a5e245bcd637aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   Enabled: 1
   Amount: 0.01
   Frequency: 13
@@ -963,6 +973,7 @@ MonoBehaviour:
   EnabledRoationMovement: 1
   RoationMovementSmooth: 6.7
   RoationMovementAmount: 4
+  player: {fileID: 0}
 --- !u!114 &4582019822591254239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,6 +1079,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b9b87a06c1184c91c50e7ca0854b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   Player: {fileID: 4582019824381016672}
   RotationAmount: 0.2
   RotationSmooth: 6
@@ -1180,10 +1194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a605aa1aa281f24a860449f9f60a2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
-  Camera: {fileID: 4582019823802981677}
+  CameraHolder: {fileID: 0}
+  MovementFX: {fileID: 0}
   Items: {fileID: 4434987455403460021}
   walkingSpeed: 3
   CroughSpeed: 1
@@ -1207,6 +1222,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   isRunning: 0
+  cam: {fileID: 0}
   Moving: 0
   vertical: 0
   horizontal: 0

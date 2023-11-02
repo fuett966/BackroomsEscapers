@@ -1,5 +1,4 @@
-﻿//by EvolveGames
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,7 +12,10 @@ namespace EvolveGames
     {
         [Header("PlayerController")]
         [SerializeField]
-        public Transform Camera;
+        public Transform CameraHolder;
+
+        [SerializeField]
+        public Transform MovementFX;
 
         [SerializeField]
         public ItemChange Items;
@@ -84,7 +86,6 @@ namespace EvolveGames
         [SerializeField]
         KeyCode CroughKey = KeyCode.LeftControl;
 
-        [HideInInspector]
         public CharacterController characterController;
 
         [HideInInspector]
@@ -97,6 +98,8 @@ namespace EvolveGames
         public bool isRunning = false;
         Vector3 InstallCameraMovement;
         float InstallFOV;
+
+        [SerializeField]
         Camera cam;
 
         [HideInInspector]
@@ -138,14 +141,39 @@ namespace EvolveGames
 
         public override void OnStartClient()
         {
-            characterController = GetComponent<CharacterController>();
+            base.OnStartClient();
+            if (!base.IsOwner)
+            {
+                return;
+            }
+
+            // if (cam == null )
+            // {
+            // cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            // }
+
+            // cam.transform.SetParent(MovementFX);
+
+            //characterController = GetComponent<CharacterController>();
             if (Items == null && GetComponent<ItemChange>())
+            {
                 Items = GetComponent<ItemChange>();
-            cam = GetComponentInChildren<Camera>();
+            }
+            // GameObject[] gms = GameObject.FindGameObjectsWithTag("MainCamera");
+            // for (int i = 0; i < gms.Length; i++)
+            // {
+            //     if(gms[i].GetComponent<Camera>() != cam)
+            //     {
+            //         gms[i].GetComponent<Camera>().enabled = false;
+            //         cam.enabled = true;
+            //     }
+            // }
+
+            //cam = GetComponentInChildren<Camera>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             InstallCroughHeight = characterController.height;
-            InstallCameraMovement = Camera.localPosition;
+            InstallCameraMovement = CameraHolder.localPosition;
             InstallFOV = cam.fieldOfView;
             RunningValue = RuningSpeed;
             installGravity = gravity;
@@ -154,9 +182,11 @@ namespace EvolveGames
 
         void Update()
         {
-            if(!base.IsOwner)
-            { return; 
+            if (!base.IsOwner)
+            {
+                return;
             }
+
             RaycastHit CroughCheck;
             RaycastHit ObjectCheck;
 
@@ -207,7 +237,7 @@ namespace EvolveGames
 
                 rotationX += Lookvertical * lookSpeed;
                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-                Camera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+                CameraHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
                 transform.rotation *= Quaternion.Euler(0, Lookhorizontal * lookSpeed, 0);
 
                 if (isRunning && Moving)
@@ -299,7 +329,7 @@ namespace EvolveGames
             {
                 moveDirection = new Vector3(
                     0,
-                    Input.GetAxis("Vertical") * Speed * (-Camera.localRotation.x / 1.7f),
+                    Input.GetAxis("Vertical") * Speed * (-CameraHolder.localRotation.x / 1.7f),
                     0
                 );
             }
