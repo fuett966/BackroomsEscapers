@@ -14098,8 +14098,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264476580498915186, guid: d3836de6983a40847bbaebfe573e7836,
         type: 3}
+      propertyPath: _scenePathHash
+      value: 2578332039
+      objectReference: {fileID: 0}
+    - target: {fileID: 8264476580498915186, guid: d3836de6983a40847bbaebfe573e7836,
+        type: 3}
       propertyPath: <SceneId>k__BackingField
-      value: 11073851788833335182
+      value: 11073851787145349669
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
