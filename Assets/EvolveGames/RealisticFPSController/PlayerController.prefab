@@ -1229,6 +1229,7 @@ MonoBehaviour:
   Lookvertical: 0
   Lookhorizontal: 0
   WalkingValue: 0
+  _anim: {fileID: 0}
 --- !u!114 &4434987455403460021
 MonoBehaviour:
   m_ObjectHideFlags: 0

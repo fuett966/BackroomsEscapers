@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using FishNet.Object;
 using UnityEngine;
-using UnityEngine.Networking;
-using FishNet.Connection;
-using FishNet.Object;
 
 namespace EvolveGames
 {
@@ -123,6 +119,8 @@ namespace EvolveGames
         [HideInInspector]
         public float WalkingValue;
 
+        [SerializeField]
+        private Animator _anim;
         // void Start()
         // {
         //     characterController = GetComponent<CharacterController>();
@@ -310,6 +308,25 @@ namespace EvolveGames
                 Items.ani.SetBool("Hide", WallDistance);
                 Items.DefiniteHide = WallDistance;
             }
+            if (horizontal != 0 || vertical != 0)
+            {
+                if (isRunning)
+                    _anim.SetBool("Running", true);
+
+                else
+                {
+                    _anim.SetBool("Walking", true);
+                    _anim.SetBool("Running", false);
+                }
+
+            }
+            else
+            {
+                _anim.SetBool("Walking", false);
+                _anim.SetBool("Running", false);
+
+            }
+
         }
 
         private void OnTriggerEnter(Collider other)
