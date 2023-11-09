@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Networking;
+using FishNet.Connection;
 using FishNet.Object;
 
 public class CameraController : NetworkBehaviour
