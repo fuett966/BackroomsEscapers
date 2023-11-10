@@ -71,8 +71,7 @@ namespace FishNet.Managing.Object
             else
                 headerWriter.WriteInt16(-1);
 
-            bool nested = (nob.CurrentParentNetworkObject != null);
-
+            bool nested = (nob.IsNested && nob.ParentNetworkObject != null);
             bool sceneObject = nob.IsSceneObject;
             //Write type of spawn.
             SpawnType st = SpawnType.Unset;
@@ -92,7 +91,7 @@ namespace FishNet.Managing.Object
 
             /* When nested the parent nob needs to be written. */
             if (nested)
-                headerWriter.WriteNetworkObjectId(nob.CurrentParentNetworkObject);
+                headerWriter.WriteNetworkObjectId(nob.ParentNetworkObject);
 
             /* Writing a scene object. */
             if (sceneObject)

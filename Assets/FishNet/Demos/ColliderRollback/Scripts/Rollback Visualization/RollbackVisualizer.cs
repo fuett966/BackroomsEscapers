@@ -3,9 +3,9 @@ using FishNet.Object;
 using System;
 using UnityEngine;
 
-
-namespace FishNet.Example.ColliderRollbacks
+namespace FishNet.Component.ColliderRollback.Demo
 {
+
     /// <summary>
     /// DEMO. CODE IS NOT OPTIMIZED.
     /// Shows where an object was when client hit it, and where it was after server rolled it back.

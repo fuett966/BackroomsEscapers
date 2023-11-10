@@ -146,7 +146,6 @@ namespace FishNet.Managing.Scened
         /// <param name="movedNetworkObjects">NetworkObjects to move to the first specified scene.</param>
         public SceneLoadData(SceneLookupData[] sceneLookupDatas, NetworkObject[] movedNetworkObjects)
         {
-            sceneLookupDatas = SceneLookupData.ValidateData(sceneLookupDatas);
             Construct(sceneLookupDatas, movedNetworkObjects);
         }
 
@@ -169,7 +168,7 @@ namespace FishNet.Managing.Scened
         {
             foreach (SceneLookupData sld in SceneLookupDatas)
             {
-                Scene result = sld.GetScene(out _, false);
+                Scene result = sld.GetScene(out _);
                 if (!string.IsNullOrEmpty(result.name))
                     return result;
             }

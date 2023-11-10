@@ -540,8 +540,10 @@ namespace FishNet.Component.Animating
             if (!_isAnimatorEnabled)
                 return;
 
-            CheckSendToServer();
-            CheckSendToClients();
+            if (base.IsClient)
+                CheckSendToServer();
+            if (base.IsServer)
+                CheckSendToClients();
         }
 
         private void Update()
@@ -665,7 +667,7 @@ namespace FishNet.Component.Animating
         private void CheckSendToServer()
         {
             //Cannot send to server if is server or not client.
-            if (base.IsServer || !base.IsClientInitialized)
+            if (base.IsServer || !base.IsClient)
                 return;
             //Cannot send to server if not client authoritative or don't have authority.
             if (!ClientAuthoritative || !base.IsOwner)
@@ -687,8 +689,8 @@ namespace FishNet.Component.Animating
         /// </summary>
         private void CheckSendToClients()
         {
-            //Cannot send to clients if not server initialized.
-            if (!base.IsServerInitialized)
+            //Cannot send to clients if not server.
+            if (!base.IsServer)
                 return;
 
             bool sendFromServer;
@@ -915,7 +917,7 @@ namespace FishNet.Component.Animating
                      * to be processed by Unity, this check ensures that. */
                     if (frameCount == item.Value.FrameCount)
                         continue;
-
+                    
                     //Add to layers being sent. This is so they can be removed from the collection later.
                     sentLayers.Add(item.Key);
                     int layerIndex = item.Key;
@@ -952,7 +954,7 @@ namespace FishNet.Component.Animating
                     for (int i = 0; i < sentLayers.Count; i++)
                         _unsynchronizedLayerStates.Remove(sentLayers[i]);
                     //Store cache.
-                    CollectionCaches<int>.Store(sentLayers);
+                    CollectionCaches<int>.Store(sentLayers);                    
                 }
             }
 

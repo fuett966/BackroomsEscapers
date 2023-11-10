@@ -8,7 +8,6 @@
 // Licensed under the MIT/X11 license.
 //
 
-using MonoFN.Cecil;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

@@ -139,31 +139,22 @@ namespace FishNet.Object.Synchronizing
                  * is initialized and the server is not active. */
                 bool asServerInvoke = (!isNetworkInitialized || base.NetworkBehaviour.IsServer);
 
-                T prev = _value;
-
-                /* If the network has not been initialized yet then the
-                 * object has not yet spawned. While we know this is being called
-                 * from user code, because the object is not spawned we do not
-                 * know if server or client is active. When this happens invoke
-                 * will be called on server and client, and since this is not
-                 * network initialized the values will be cached where the invoke
-                 * will occur after spawn. */
+                /* If the network has not been network initialized then
+                 * Value is expected to be set on server and client since
+                 * it's being set before the object is initialized. */
                 if (!isNetworkInitialized)
                 {
-                    //Value did not change.
-                    if (Comparers.EqualityCompare<T>(_value, nextValue))
-                        return;
-
-                    _value = nextValue;
-                    InvokeOnChange(prev, _value, true);
-                    InvokeOnChange(prev, _value, false);
+                    T prev = _value;
+                    UpdateValues(nextValue);
+                    //Still call invoke because change will be cached for when the network initializes.
+                    InvokeOnChange(prev, _value, calledByUser);
                 }
                 else
                 {
-                    //Value did not change.
                     if (Comparers.EqualityCompare<T>(_value, nextValue))
                         return;
 
+                    T prev = _value;
                     _value = nextValue;
                     InvokeOnChange(prev, _value, asServerInvoke);
                 }
@@ -199,7 +190,7 @@ namespace FishNet.Object.Synchronizing
              * and client or just one side. */
             void TryDirty(bool asServer)
             {
-                //Do not mark dirty if the object is not been network initialized.
+                //Cannot dirty when network is not initialized.
                 if (!isNetworkInitialized)
                     return;
 
@@ -216,26 +207,16 @@ namespace FishNet.Object.Synchronizing
             if (asServer)
             {
                 if (base.NetworkBehaviour.OnStartServerCalled)
-                {
                     OnChange?.Invoke(prev, next, asServer);
-                    _serverOnChange = null;
-                }
                 else
-                {
                     _serverOnChange = new CachedOnChange(prev, next);
-                }
             }
             else
             {
                 if (base.NetworkBehaviour.OnStartClientCalled)
-                {
                     OnChange?.Invoke(prev, next, asServer);
-                    _clientOnChange = null;
-                }
                 else
-                {
                     _clientOnChange = new CachedOnChange(prev, next);
-                }
             }
         }
 

@@ -73,15 +73,6 @@ namespace FishNet.Transporting.Tugboat
             timeout = (timeout == 0) ? int.MaxValue : Math.Min(int.MaxValue, (timeout * 1000));
             netManager.DisconnectTimeout = timeout;
         }
-
-        /// <summary>
-        /// Clears a ConcurrentQueue of any type.
-        /// </summary>
-        internal void ClearGenericQueue<T>(ref ConcurrentQueue<T> queue)
-        {
-            while (queue.TryDequeue(out _)) { }
-        }
-
         /// <summary>
         /// Clears a queue using Packet type.
         /// </summary>
@@ -109,7 +100,7 @@ namespace FishNet.Transporting.Tugboat
         /// <summary>
         /// Called when data is received.
         /// </summary>
-        internal virtual void Listener_NetworkReceiveEvent(ConcurrentQueue<Packet> queue,  NetPeer fromPeer, NetPacketReader reader, DeliveryMethod deliveryMethod, int mtu)
+        internal virtual void Listener_NetworkReceiveEvent(Queue<Packet> queue,  NetPeer fromPeer, NetPacketReader reader, DeliveryMethod deliveryMethod, int mtu)
         {
             //Set buffer.
             int dataLen = reader.AvailableBytes;
@@ -127,11 +118,6 @@ namespace FishNet.Transporting.Tugboat
             queue.Enqueue(packet);
             //Recycle reader.
             reader.Recycle();
-        }
-
-        internal void PollSocket(NetManager nm)
-        {
-            nm?.PollEvents();
         }
 
     }

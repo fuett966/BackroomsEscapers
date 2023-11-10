@@ -1,9 +1,9 @@
 ﻿using FishNet.Object;
 using UnityEngine;
 
-
-namespace FishNet.Example.ColliderRollbacks
+namespace FirstGearGames.ColliderRollbacks.Demos
 {
+
 
     public class Strafe : NetworkBehaviour
     {

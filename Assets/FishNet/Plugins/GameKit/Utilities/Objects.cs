@@ -55,8 +55,9 @@ namespace GameKit.Utilities
             //If to also include DDOL.
             if (includeDDOL)
             {
-                GameObject ddolGo = DDOL.GetDDOL().gameObject;
-                results.AddRange(ddolGo.GetComponentsInChildren<T>(includeInactive));
+                //If instance isn't null.
+                if (DDOL.Instance != null)
+                    results.AddRange(DDOL.Instance.gameObject.GetComponentsInChildren<T>(includeInactive));
             }
 
             return results;

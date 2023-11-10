@@ -2,7 +2,6 @@ using FishNet.Managing.Logging;
 using LiteNetLib;
 using LiteNetLib.Layers;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -36,11 +35,11 @@ namespace FishNet.Transporting.Tugboat.Client
         /// <summary>
         /// Changes to the sockets local connection state.
         /// </summary>
-        private ConcurrentQueue<LocalConnectionState> _localConnectionStates = new ConcurrentQueue<LocalConnectionState>();
+        private Queue<LocalConnectionState> _localConnectionStates = new Queue<LocalConnectionState>();
         /// <summary>
         /// Inbound messages which need to be handled.
         /// </summary>
-        private ConcurrentQueue<Packet> _incoming = new ConcurrentQueue<Packet>();
+        private Queue<Packet> _incoming = new Queue<Packet>();
         /// <summary>
         /// Outbound messages which need to be handled.
         /// </summary>
@@ -82,15 +81,6 @@ namespace FishNet.Transporting.Tugboat.Client
         {
             _timeout = timeout;
             base.UpdateTimeout(_client, timeout);
-        }
-
-        /// <summary>
-        /// Polls the socket for new data.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void PollSocket()
-        {
-            base.PollSocket(_client);
         }
 
         /// <summary>
@@ -141,6 +131,8 @@ namespace FishNet.Transporting.Tugboat.Client
         /// </summary>
         /// <param name="address"></param>
         /// <param name="port"></param>
+        /// <param name="channelsCount"></param>
+        /// <param name="pollTime"></param>
         internal bool StartConnection(string address, ushort port)
         {
             if (base.GetConnectionState() != LocalConnectionState.Stopped)
@@ -181,7 +173,7 @@ namespace FishNet.Transporting.Tugboat.Client
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ResetQueues()
         {
-            base.ClearGenericQueue<LocalConnectionState>(ref _localConnectionStates);
+            _localConnectionStates.Clear();
             base.ClearPacketQueue(ref _incoming);
             base.ClearPacketQueue(ref _outgoing);
         }
@@ -264,11 +256,13 @@ namespace FishNet.Transporting.Tugboat.Client
         /// </summary>
         internal void IterateIncoming()
         {
+            _client?.PollEvents();
+
             /* Run local connection states first so we can begin
             * to read for data at the start of the frame, as that's
             * where incoming is read. */
-            while (_localConnectionStates.TryDequeue(out LocalConnectionState result))
-                base.SetConnectionState(result, false);
+            while (_localConnectionStates.Count > 0)
+                base.SetConnectionState(_localConnectionStates.Dequeue(), false);
 
             //Not yet started, cannot continue.
             LocalConnectionState localState = base.GetConnectionState();
@@ -284,8 +278,9 @@ namespace FishNet.Transporting.Tugboat.Client
             }
 
             /* Incoming. */
-            while (_incoming.TryDequeue(out Packet incoming))
+            while (_incoming.Count > 0)
             {
+                Packet incoming = _incoming.Dequeue();
                 ClientReceivedDataArgs dataArgs = new ClientReceivedDataArgs(
                     incoming.GetArraySegment(),
                     (Channel)incoming.Channel, base.Transport.Index);

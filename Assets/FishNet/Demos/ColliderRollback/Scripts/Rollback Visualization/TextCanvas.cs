@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace FishNet.Example.ColliderRollbacks
+namespace FishNet.Component.ColliderRollback.Demo
 {
+
     public class TextCanvas : MonoBehaviour
     {
         [SerializeField]

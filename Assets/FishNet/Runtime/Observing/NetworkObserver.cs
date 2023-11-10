@@ -320,12 +320,11 @@ namespace FishNet.Observing
             if (notOwner)
             {
                 bool parentVisible = true;
-                //if (_networkObject.ParentNetworkObject != null)
-                //    parentVisible = _networkObject.ParentNetworkObject.Observers.Contains(connection);
-                //if (_networkObject.RuntimeParentNetworkObject != null)
-                //    parentVisible &= _networkObject.RuntimeParentNetworkObject.Observers.Contains(connection);
-                if (_networkObject.CurrentParentNetworkObject != null)
-                    parentVisible = _networkObject.CurrentParentNetworkObject.Observers.Contains(connection);
+                if (_networkObject.ParentNetworkObject != null)
+                    parentVisible = _networkObject.ParentNetworkObject.Observers.Contains(connection);
+                if (_networkObject.RuntimeParentNetworkObject != null)
+                    parentVisible &= _networkObject.RuntimeParentNetworkObject.Observers.Contains(connection);
+
                 /* If parent is visible but was not previously
                  * then unset timedOnly to make sure all conditions
                  * are checked again. This ensures that the _nonTimedMet

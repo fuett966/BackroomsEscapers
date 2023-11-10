@@ -190,22 +190,6 @@ namespace FishNet.Object
         [HideInInspector]
         public NetworkObject RuntimeParentNetworkObject { get; private set; }
         /// <summary>
-        /// NetworkObject parenting this instance. This value will be RuntimeParentNetworkObject if set at runtime, or ParentNetworkObject if not.
-        /// </summary>
-        [HideInInspector]
-        internal NetworkObject CurrentParentNetworkObject
-        {
-            get
-            {
-                if (RuntimeParentNetworkObject != null)
-                    return RuntimeParentNetworkObject;
-                else if (ParentNetworkObject != null)
-                    return ParentNetworkObject;
-                else
-                    return null;
-            }
-        }
-        /// <summary>
         /// Transform which this instance was set a child of at runtime.
         /// </summary>
         public Transform RuntimeParentTransform { get; private set; }
@@ -260,9 +244,9 @@ namespace FishNet.Object
         /// <param name="value">New global value.</param>
         public void SetIsGlobal(bool value)
         {
-            if (IsNested && !CurrentParentNetworkObject.IsGlobal)
+            if (IsNested)
             {
-                NetworkManager.StaticLogWarning($"Object {gameObject.name} cannot change IsGlobal because it is nested and the parent NetorkObject is not global.");
+                NetworkManager.StaticLogWarning($"Object {gameObject.name} cannot change IsGlobal because it is nested. Only root objects may be set global.");
                 return;
             }
             if (!IsDeinitializing)
@@ -342,6 +326,7 @@ namespace FishNet.Object
             return $"Name [{gameObject.name}] Id [{ObjectId}]";
         }
 
+
         protected virtual void Awake()
         {
             _isStatic = gameObject.isStatic;
@@ -418,15 +403,9 @@ namespace FishNet.Object
             {
                 //Was destroyed without going through the proper methods.
                 if (NetworkManager.IsServer)
-                {
-                    DeinitializePrediction_V2(true);
                     NetworkManager.ServerManager.Objects.NetworkObjectUnexpectedlyDestroyed(this, true);
-                }
                 if (NetworkManager.IsClient)
-                {
-                    DeinitializePrediction_V2(false);
                     NetworkManager.ClientManager.Objects.NetworkObjectUnexpectedlyDestroyed(this, false);
-                }
             }
 
             /* When destroyed unexpectedly it's
@@ -457,13 +436,6 @@ namespace FishNet.Object
             SetDeinitializedStatus();
             //Do not need to set state if being destroyed.
             //Don't need to reset sync types if object is being destroyed.
-
-            void DeinitializePrediction_V2(bool asServer)
-            {
-#if PREDICTION_V2
-                Prediction_Deinitialize(asServer);
-#endif
-            }
         }
 
 #if PREDICTION_V2
@@ -484,18 +456,6 @@ namespace FishNet.Object
 
             for (int i = 0; i < NetworkBehaviours.Length; i++)
                 NetworkBehaviours[i].InitializeIfDisabled();
-        }
-
-        /// <summary>
-        /// Makes children of this NetworkObject global if this object is global.
-        /// </summary>
-        private void SetChildGlobalState()
-        {
-            if (!IsGlobal)
-                return;
-
-            for (int i = 0; i < ChildNetworkObjects.Count; i++)
-                ChildNetworkObjects[i].SetIsGlobal(true);
         }
 
         /// <summary>
@@ -521,7 +481,7 @@ namespace FishNet.Object
                 return;
 
             //Global.
-            if (IsGlobal && !IsSceneObject && !IsNested)
+            if (IsGlobal && !IsSceneObject)
                 DontDestroyOnLoad(gameObject);
 
             if (NetworkManager == null || (!NetworkManager.IsClient && !NetworkManager.IsServer))
@@ -710,12 +670,6 @@ namespace FishNet.Object
             //Setting to already current runtime parent. No need to make a change.
             if (nob == RuntimeParentNetworkObject)
                 return true;
-            //Trying to parent a non-global to a global.
-            if (nob.IsGlobal && !IsGlobal)
-            {
-                NetworkManager.LogWarning($"{nob.name} is a global NetworkObject but {gameObject.name} is not. Only global NetworkObjects can be set as a child of another global NetworkObject.");
-                return true;
-            }
             //Setting to self.
             if (nob == this)
             {
@@ -846,8 +800,6 @@ namespace FishNet.Object
                 componentIndex++;
                 item.UpdateNetworkBehaviours(this, ref componentIndex);
             }
-            //Update global states to that of this one.
-            SetChildGlobalState();
         }
 
 
@@ -926,7 +878,7 @@ namespace FishNet.Object
             SceneManager = null;
             RollbackManager = null;
             //Misc sets.
-            ObjectId = 0;
+            ObjectId = 0;          
         }
 
         /// <summary>
