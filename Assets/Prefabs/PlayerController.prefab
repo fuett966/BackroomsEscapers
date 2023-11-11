@@ -434,6 +434,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12b9b87a06c1184c91c50e7ca0854b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: 0}
   Player: {fileID: 5286471122109054462}
   RotationAmount: 0.2
   RotationSmooth: 6
@@ -728,6 +731,7 @@ MonoBehaviour:
   Lookvertical: 0
   Lookhorizontal: 0
   WalkingValue: 0
+  _anim: {fileID: 0}
 --- !u!114 &427929341657498946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,7 +866,7 @@ MonoBehaviour:
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 14188000825934897897
+  <AssetPathHash>k__BackingField: 5129453117455257293
 --- !u!114 &9219563331723069919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,6 +1228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea1fc3719a9e9443a42c8833cf84ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: 0}
   Enabled: 1
   Amount: 0.0076
   SprintAmount: 1.4
@@ -1461,6 +1468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabda559814d30d45a5e245bcd637aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -4242008452364502442}
+  _networkObjectCache: {fileID: 0}
   Enabled: 1
   Amount: 0.00484
   Frequency: 16
