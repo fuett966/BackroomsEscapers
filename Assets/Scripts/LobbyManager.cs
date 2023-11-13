@@ -28,10 +28,13 @@ public class LobbyManager : NetworkBehaviour
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
 
+    [SerializeField] public Transform _humanSpawnTransform;
+    [SerializeField] public Transform _entitySpawnTransform;
+
 
     //[SerializeField] private GameObject canvasObject;
     [SerializeField] private List<GameObject> characters = new List<GameObject>();
-    // [SerializeField] private GameObject characterSelectorPanel;
+   // [SerializeField] private GameObject characterSelectorPanel;
     private void Awake()
     {
         Instance = this;
@@ -44,22 +47,28 @@ public class LobbyManager : NetworkBehaviour
             return;
     }
 
-    public void SpawnHuman()
+    public void SpawnHuman(GameObject characterSelectorPanel)
     {
-      //  characterSelectorPanel.SetActive(false);
-        Spawn(0, LocalConnection);
+        characterSelectorPanel.SetActive(false);
+        Spawn(0, LocalConnection, false);
     }
-    public void SpawnEntity()
+    public void SpawnEntity(GameObject characterSelectorPanel)
     {
-       // characterSelectorPanel.SetActive(false);
-        Spawn(1, LocalConnection);
+        characterSelectorPanel.SetActive(false);
+        Spawn(1, LocalConnection, true);
 
     }
 
     [ServerRpc(RequireOwnership = false)]
-    void Spawn(int spawnIndex, NetworkConnection conn)
+    void Spawn(int spawnIndex, NetworkConnection conn, bool isEntity)
     {
-        GameObject player = Instantiate(characters[spawnIndex], Vector3.zero, Quaternion.identity);
+        Vector3 spawnPosition;
+        if (isEntity)
+            spawnPosition = _entitySpawnTransform.position;
+        else
+            spawnPosition = _humanSpawnTransform.position;
+
+        GameObject player = Instantiate(characters[spawnIndex], spawnPosition, Quaternion.identity);
         Spawn(player, conn);
     }
 
@@ -69,6 +78,7 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Сигнал на энтити принят");
 
         lobbyManager.playersEntity += amountToChange;
+      //  GameManager.Instance.playersEntity = lobbyManager.playersEntity;
         OnEntityValueChanged?.Invoke(playersEntity);
       //  lobbyManager.playersEntityCountText.text = lobbyManager.playersEntity.ToString();
         if (lobbyManager.playersEntity >= lobbyManager.maxPlayersEntity)
@@ -83,9 +93,10 @@ public class LobbyManager : NetworkBehaviour
     {
         Debug.Log("Сигнал на человека принят");
         lobbyManager.playersHumans += amountToChange;
+     //   GameManager.Instance.playersHumans = lobbyManager.playersHumans;
 
-       // OnHumansValueChanged?.Invoke(playersHumans);
-         UpdateSelectedServ();
+        // OnHumansValueChanged?.Invoke(playersHumans);
+        UpdateSelectedServ();
 
         if (lobbyManager.playersHumans >= lobbyManager.maxPlayersHumans)
             senderButton.DisableButton();

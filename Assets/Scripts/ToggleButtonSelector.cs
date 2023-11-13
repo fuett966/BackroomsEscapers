@@ -11,6 +11,7 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     [SerializeField] private TextMeshProUGUI entityText;
     [SerializeField] private TextMeshProUGUI humanText;
+    [SerializeField] private ClientDataPlayer clientDataPlayer;
 
     //[SerializeField] private LobbyManager lobbyManager;
 
@@ -56,7 +57,10 @@ public class ToggleButtonSelector : NetworkBehaviour
         Debug.Log("Отослал чел");
         Debug.Log(LobbyManager.Instance);
         if (isActivated)
+        {
             LobbyManager.Instance.UpdateSelectedHumans(LobbyManager.Instance, 1, this);
+            clientDataPlayer.isEntity = false;
+        }
         else
             LobbyManager.Instance.UpdateSelectedHumans(LobbyManager.Instance, -1, this);
 
@@ -68,7 +72,10 @@ public class ToggleButtonSelector : NetworkBehaviour
 
         ActiveChanger();
         if (isActivated)
+        {
             LobbyManager.Instance.UpdateSelectedEntity(LobbyManager.Instance, 1, this);
+            clientDataPlayer.isEntity = true;
+        }
         else
             LobbyManager.Instance.UpdateSelectedEntity(LobbyManager.Instance, -1, this);
     }

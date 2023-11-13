@@ -1197,6 +1197,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
+  _postProcess: {fileID: 0}
   CameraHolder: {fileID: 0}
   MovementFX: {fileID: 0}
   Items: {fileID: 4434987455403460021}

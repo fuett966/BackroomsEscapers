@@ -6,6 +6,8 @@ namespace EvolveGames
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : NetworkBehaviour
     {
+        [SerializeField] private GameObject _postProcess;
+
         [Header("PlayerController")]
         [SerializeField]
         public Transform CameraHolder;
@@ -170,6 +172,8 @@ namespace EvolveGames
             //cam = GetComponentInChildren<Camera>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            cam.gameObject.SetActive(true);
+            _postProcess.SetActive(true);
             InstallCroughHeight = characterController.height;
             InstallCameraMovement = CameraHolder.localPosition;
             InstallFOV = cam.fieldOfView;
