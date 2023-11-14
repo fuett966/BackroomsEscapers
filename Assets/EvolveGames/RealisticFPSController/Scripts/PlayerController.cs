@@ -6,7 +6,8 @@ namespace EvolveGames
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : NetworkBehaviour
     {
-        [SerializeField] private GameObject _postProcess;
+        [SerializeField]
+        private GameObject _postProcess;
 
         [Header("PlayerController")]
         [SerializeField]
@@ -123,6 +124,7 @@ namespace EvolveGames
 
         [SerializeField]
         private Animator _anim;
+
         // void Start()
         // {
         //     characterController = GetComponent<CharacterController>();
@@ -146,30 +148,11 @@ namespace EvolveGames
             {
                 return;
             }
-
-            // if (cam == null )
-            // {
-            // cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-            // }
-
-            // cam.transform.SetParent(MovementFX);
-
-            //characterController = GetComponent<CharacterController>();
             if (Items == null && GetComponent<ItemChange>())
             {
                 Items = GetComponent<ItemChange>();
             }
-            // GameObject[] gms = GameObject.FindGameObjectsWithTag("MainCamera");
-            // for (int i = 0; i < gms.Length; i++)
-            // {
-            //     if(gms[i].GetComponent<Camera>() != cam)
-            //     {
-            //         gms[i].GetComponent<Camera>().enabled = false;
-            //         cam.enabled = true;
-            //     }
-            // }
 
-            //cam = GetComponentInChildren<Camera>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             cam.gameObject.SetActive(true);
@@ -316,21 +299,17 @@ namespace EvolveGames
             {
                 if (isRunning)
                     _anim.SetBool("Running", true);
-
                 else
                 {
                     _anim.SetBool("Walking", true);
                     _anim.SetBool("Running", false);
                 }
-
             }
             else
             {
                 _anim.SetBool("Walking", false);
                 _anim.SetBool("Running", false);
-
             }
-
         }
 
         private void OnTriggerEnter(Collider other)

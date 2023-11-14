@@ -13,38 +13,43 @@ public class LobbyManager : NetworkBehaviour
     private bool gameStarted = false;
 
     // public TextMeshProUGUI playersReadyCountText;
-     //public TextMeshProUGUI playersEntityCountText;
-     //public TextMeshProUGUI playersHumansCountText;
+    //public TextMeshProUGUI playersEntityCountText;
+    //public TextMeshProUGUI playersHumansCountText;
 
 
 
-    [SyncVar] public int playersReady = 0;
-    [SyncVar] public int playersEntity = 0;
-    [SyncVar] public int playersHumans = 0;
+    [SyncVar]
+    public int playersReady = 0;
 
-    [SyncVar] public int maxPlayersEntity = 1;
-    [SyncVar] public int maxPlayersHumans = 4;
+    [SyncVar]
+    public int playersEntity = 0;
+
+    [SyncVar]
+    public int playersHumans = 0;
+
+    [SyncVar]
+    public int maxPlayersEntity = 1;
+
+    [SyncVar]
+    public int maxPlayersHumans = 4;
 
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
 
-    [SerializeField] public Transform _humanSpawnTransform;
-    [SerializeField] public Transform _entitySpawnTransform;
+    [SerializeField]
+    public Transform _humanSpawnTransform;
 
+    [SerializeField]
+    public Transform _entitySpawnTransform;
 
     //[SerializeField] private GameObject canvasObject;
-    [SerializeField] private List<GameObject> characters = new List<GameObject>();
-   // [SerializeField] private GameObject characterSelectorPanel;
+    [SerializeField]
+    private List<GameObject> characters = new List<GameObject>();
+
+    // [SerializeField] private GameObject characterSelectorPanel;
     private void Awake()
     {
         Instance = this;
-    }
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-        if (!base.IsOwner)
-            return;
     }
 
     public void SpawnHuman(GameObject characterSelectorPanel)
@@ -52,11 +57,11 @@ public class LobbyManager : NetworkBehaviour
         characterSelectorPanel.SetActive(false);
         Spawn(0, LocalConnection, false);
     }
+
     public void SpawnEntity(GameObject characterSelectorPanel)
     {
         characterSelectorPanel.SetActive(false);
         Spawn(1, LocalConnection, true);
-
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -73,27 +78,34 @@ public class LobbyManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdateSelectedEntity(LobbyManager lobbyManager, int amountToChange, ToggleButtonSelector senderButton)
+    public void UpdateSelectedEntity(
+        LobbyManager lobbyManager,
+        int amountToChange,
+        ToggleButtonSelector senderButton
+    )
     {
-        Debug.Log("Сигнал на энтити принят");
-
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+        UpdateSelectedServ();
         lobbyManager.playersEntity += amountToChange;
-      //  GameManager.Instance.playersEntity = lobbyManager.playersEntity;
+        //  GameManager.Instance.playersEntity = lobbyManager.playersEntity;
         OnEntityValueChanged?.Invoke(playersEntity);
-      //  lobbyManager.playersEntityCountText.text = lobbyManager.playersEntity.ToString();
-        if (lobbyManager.playersEntity >= lobbyManager.maxPlayersEntity)
-            senderButton.DisableButton();
-        else
-            senderButton.EnableButton();
-
+        //  lobbyManager.playersEntityCountText.text = lobbyManager.playersEntity.ToString();
+        // if (lobbyManager.playersEntity >= lobbyManager.maxPlayersEntity)
+        //     senderButton.DisableButton();
+        // else
+        //     senderButton.EnableButton();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdateSelectedHumans(LobbyManager lobbyManager, int amountToChange, ToggleButtonSelector senderButton)
+    public void UpdateSelectedHumans(
+        LobbyManager lobbyManager,
+        int amountToChange,
+        ToggleButtonSelector senderButton
+    )
     {
-        Debug.Log("Сигнал на человека принят");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
         lobbyManager.playersHumans += amountToChange;
-     //   GameManager.Instance.playersHumans = lobbyManager.playersHumans;
+        //   GameManager.Instance.playersHumans = lobbyManager.playersHumans;
 
         // OnHumansValueChanged?.Invoke(playersHumans);
         UpdateSelectedServ();
@@ -103,16 +115,22 @@ public class LobbyManager : NetworkBehaviour
         else
             senderButton.EnableButton();
     }
+
     [ObserversRpc]
     public void UpdateSelectedServ()
     {
-        Debug.Log("Вызывало ивент");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
         OnHumansValueChanged?.Invoke(playersHumans);
+        OnEntityValueChanged?.Invoke(playersEntity);
     }
+
     [ServerRpc]
-    public void UpdateReadyPlayers(LobbyManager lobbyManager, int amountToChange, ToggleButtonSelector senderButton)
+    public void UpdateReadyPlayers(
+        LobbyManager lobbyManager,
+        int amountToChange,
+        ToggleButtonSelector senderButton
+    )
     {
         lobbyManager.playersReady += amountToChange;
     }
-
 }
