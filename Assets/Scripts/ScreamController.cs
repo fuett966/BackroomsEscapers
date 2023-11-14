@@ -8,8 +8,8 @@ public class ScreamController : NetworkBehaviour
     public AudioClip screamSound; // Звук крика
 
     public AudioSource screamSource;
-    // public float screamRadius = 5f; // Радиус действия крика
-    //  public int screamDamage = 20; // Урон
+    public float screamRadius = 5f; // Радиус действия крика
+    public int screamDamage = 20; // Урон
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -31,6 +31,19 @@ public class ScreamController : NetworkBehaviour
             ScreamServer();
         }
     }
+    void DealDamageToNearbyPlayers()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, screamRadius);
+
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("Human"))
+            {
+                Debug.Log("Должен был нанести урон");
+                col.GetComponent<IDamageable>().TakeDamage(screamDamage);
+            }
+        }
+    }
     [ServerRpc]
     public void ScreamServer()
     {
@@ -39,7 +52,14 @@ public class ScreamController : NetworkBehaviour
     [ObserversRpc]
     public void Scream()
     {
+        DealDamageToNearbyPlayers();
         screamSource.clip = screamSound;
         screamSource.Play();
+    }
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, screamRadius);
     }
 }

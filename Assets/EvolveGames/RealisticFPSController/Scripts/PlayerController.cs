@@ -8,6 +8,8 @@ namespace EvolveGames
     {
         [SerializeField]
         private GameObject _postProcess;
+        [SerializeField]
+        private GameObject _hud;
 
         [Header("PlayerController")]
         [SerializeField]
@@ -171,8 +173,15 @@ namespace EvolveGames
             {
                 return;
             }
+            _hud.SetActive(true);
+          //  if (Input.GetKey(KeyCode.Escape))
+          //  {
+           //     Cursor.lockState = CursorLockMode.None;
+           //     Cursor.visible = true;
+          //  }
+   
 
-            RaycastHit CroughCheck;
+                RaycastHit CroughCheck;
             RaycastHit ObjectCheck;
 
             if (!characterController.isGrounded && !isClimbing)

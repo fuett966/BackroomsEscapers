@@ -1,22 +1,13 @@
-using System.Collections;
+using FishNet.Connection;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Object;
-using FishNet.Connection;
-using FishNet.Object.Synchronizing;
-using TMPro;
-using System;
 
 public class LobbyManager : NetworkBehaviour
 {
     public static LobbyManager Instance;
-    private bool gameStarted = false;
-
-    // public TextMeshProUGUI playersReadyCountText;
-    //public TextMeshProUGUI playersEntityCountText;
-    //public TextMeshProUGUI playersHumansCountText;
-
-
 
     [SyncVar]
     public int playersReady = 0;
@@ -33,20 +24,19 @@ public class LobbyManager : NetworkBehaviour
     [SyncVar]
     public int maxPlayersHumans = 4;
 
-    public event Action<int> OnEntityValueChanged;
-    public event Action<int> OnHumansValueChanged;
+    [SerializeField]
+    private Transform _humanSpawnTransform;
 
     [SerializeField]
-    public Transform _humanSpawnTransform;
+    private Transform _entitySpawnTransform;
 
-    [SerializeField]
-    public Transform _entitySpawnTransform;
-
-    //[SerializeField] private GameObject canvasObject;
     [SerializeField]
     private List<GameObject> characters = new List<GameObject>();
 
-    // [SerializeField] private GameObject characterSelectorPanel;
+    public event Action<int> OnEntityValueChanged;
+    public event Action<int> OnHumansValueChanged;
+
+
     private void Awake()
     {
         Instance = this;
@@ -103,7 +93,6 @@ public class LobbyManager : NetworkBehaviour
         ToggleButtonSelector senderButton
     )
     {
-        Debug.Log("������ �� �������� ������");
         lobbyManager.playersHumans += amountToChange;
         //   GameManager.Instance.playersHumans = lobbyManager.playersHumans;
 
@@ -119,7 +108,6 @@ public class LobbyManager : NetworkBehaviour
     [ObserversRpc]
     public void UpdateSelectedServ()
     {
-        Debug.Log("�������� �����");
         OnHumansValueChanged?.Invoke(playersHumans);
         OnEntityValueChanged?.Invoke(playersEntity);
     }

@@ -7,9 +7,6 @@ public class ToggleButtonSelector : NetworkBehaviour
 {
     [SerializeField]
     private GameObject _frameSelect;
-    public bool isActivated;
-
-    private Button _button;
 
     [SerializeField]
     private TextMeshProUGUI entityText;
@@ -20,54 +17,37 @@ public class ToggleButtonSelector : NetworkBehaviour
     [SerializeField]
     private ClientDataPlayer clientDataPlayer;
 
-    //[SerializeField] private LobbyManager lobbyManager;
+    private Button _button;
+
+    public bool isActivated;
+
 
     private void OnEnable()
     {
-        //LobbyManager.Instance.OnEntityValueChanged += UpdateEntityTextValues;
-        //  LobbyManager.Instance.OnHumansValueChanged += UpdateHumansTextValues;
+        LobbyManager.Instance.OnEntityValueChanged += UpdateEntityTextValues;
         LobbyManager.Instance.OnHumansValueChanged += UpdateHumansTextValues;
     }
 
     private void OnDisable()
     {
-        // LobbyManager.Instance.OnEntityValueChanged -= UpdateEntityTextValues;
+        LobbyManager.Instance.OnEntityValueChanged -= UpdateEntityTextValues;
         LobbyManager.Instance.OnHumansValueChanged -= UpdateHumansTextValues;
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-        if (base.IsOwner)
-        {
-            //   GetComponent<ToggleButtonSelector>().enabled = false;
-        }
     }
 
     private void Start()
     {
-        Debug.Log("������ ��������");
         _button = GetComponent<Button>();
     }
 
     private void Update()
     {
-        this.humanText.text = LobbyManager.Instance.playersHumans.ToString();
-        this.entityText.text = LobbyManager.Instance.playersEntity.ToString();
-    }
-
-    public void ActiveChanger()
-    {
-        isActivated = !isActivated;
-        ToggleFrameSelection();
+        humanText.text = LobbyManager.Instance.playersHumans.ToString();
+        entityText.text = LobbyManager.Instance.playersEntity.ToString();
     }
 
     public void ChangeHumanValue()
     {
         ActiveChanger();
-        Debug.Log("������� ���");
-        Debug.Log(LobbyManager.Instance);
         if (isActivated)
         {
             LobbyManager.Instance.UpdateSelectedHumans(LobbyManager.Instance, 1, this);
@@ -79,7 +59,6 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     public void ChangeEntityValue()
     {
-        Debug.Log("������� ���");
 
         ActiveChanger();
         if (isActivated)
@@ -100,6 +79,26 @@ public class ToggleButtonSelector : NetworkBehaviour
             LobbyManager.Instance.UpdateReadyPlayers(LobbyManager.Instance, -1, this);
     }
 
+    public void UpdateEntityTextValues(int value)
+    {
+        this.entityText.text = value.ToString();
+    }
+
+    public void UpdateHumansTextValues(int value)
+    {
+        Debug.Log("����� ������ ��� ����������");
+        Debug.Log("����������: " + LobbyManager.Instance.playersHumans.ToString());
+        Debug.Log("Value: " + value.ToString());
+
+        this.humanText.text = value.ToString();
+    }
+
+    public void ActiveChanger()
+    {
+        isActivated = !isActivated;
+        ToggleFrameSelection();
+    }
+
     public void ToggleFrameSelection()
     {
         _frameSelect.SetActive(isActivated);
@@ -113,19 +112,5 @@ public class ToggleButtonSelector : NetworkBehaviour
     public void DisableButton()
     {
         _button.interactable = false;
-    }
-
-    public void UpdateEntityTextValues(int value)
-    {
-        this.entityText.text = value.ToString();
-    }
-
-    public void UpdateHumansTextValues(int value)
-    {
-        Debug.Log("����� ������ ��� ����������");
-        Debug.Log("����������: " + LobbyManager.Instance.playersHumans.ToString());
-        Debug.Log("Value: " + value.ToString());
-
-        this.humanText.text = value.ToString();
     }
 }
