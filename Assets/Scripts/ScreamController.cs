@@ -1,36 +1,40 @@
 using FishNet.Object;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreamController : NetworkBehaviour
 {
-    public AudioClip screamSound; // Звук крика
+    public AudioClip screamSound; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
     public AudioSource screamSource;
-    public float screamRadius = 5f; // Радиус действия крика
-    public int screamDamage = 20; // Урон
+    public float screamRadius = 5f; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public int screamDamage = 20; // пїЅпїЅпїЅпїЅ
+
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if(base.IsOwner)
+        if (base.IsOwner)
         {
             screamSource.clip = screamSound;
         }
         else
         {
-            Debug.Log("Монстр может быть только один");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
             return;
         }
     }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Нажимаю");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
             ScreamServer();
         }
     }
+
     void DealDamageToNearbyPlayers()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, screamRadius);
@@ -39,23 +43,26 @@ public class ScreamController : NetworkBehaviour
         {
             if (col.CompareTag("Human"))
             {
-                Debug.Log("Должен был нанести урон");
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
                 col.GetComponent<IDamageable>().TakeDamage(screamDamage);
             }
         }
     }
+
     [ServerRpc]
     public void ScreamServer()
     {
         Scream();
     }
-    [ObserversRpc]
+
+    //[ServerRpc]
     public void Scream()
     {
         DealDamageToNearbyPlayers();
         screamSource.clip = screamSound;
         screamSource.Play();
     }
+
     void OnDrawGizmos()
     {
         // Draw a yellow sphere at the transform's position
