@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scene/Lobby.unity
-    guid: 940320bfc9b333d46b2db225353bc894
-  - enabled: 0
-    path: Assets/Scene/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
   - enabled: 1
     path: Assets/Scene/MainMenuSteam.unity
     guid: 559db339429687e409bdf49f7600b3c0
   - enabled: 1
     path: Assets/Scene/LobbySteam.unity
     guid: 9b3a908ad7ac2ab4390e89db718ba254
+  - enabled: 1
+    path: Assets/Scene/OutdoorsScene.unity
+    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 0
+    path: Assets/Scene/Lobby.unity
+    guid: 940320bfc9b333d46b2db225353bc894
   m_configObjects: {}
