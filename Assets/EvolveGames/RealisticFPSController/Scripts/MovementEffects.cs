@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using FishNet.Connection;
-using FishNet.Object;
+using Mirror;
 
 namespace EvolveGames
 {
@@ -38,7 +36,7 @@ namespace EvolveGames
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if (!base.IsOwner)
+            if (!isLocalPlayer)
             {
                 return;
             }
@@ -49,7 +47,7 @@ namespace EvolveGames
 
         private void Update()
         {
-            if (!base.IsOwner)
+            if (!isLocalPlayer)
             {
                 return;
             }

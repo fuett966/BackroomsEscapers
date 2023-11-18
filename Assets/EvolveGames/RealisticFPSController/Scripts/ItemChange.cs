@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
-using FishNet.Connection;
-using FishNet.Object;
+using Mirror;
 
 namespace EvolveGames
 {

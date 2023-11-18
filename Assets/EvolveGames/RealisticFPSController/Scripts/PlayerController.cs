@@ -1,5 +1,5 @@
-﻿using FishNet.Object;
-using UnityEngine;
+﻿using UnityEngine;
+using Mirror;
 
 namespace EvolveGames
 {
@@ -8,6 +8,7 @@ namespace EvolveGames
     {
         [SerializeField]
         private GameObject _postProcess;
+
         [SerializeField]
         private GameObject _hud;
 
@@ -146,7 +147,7 @@ namespace EvolveGames
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if (!base.IsOwner)
+            if (!isLocalPlayer)
             {
                 return;
             }
@@ -169,19 +170,19 @@ namespace EvolveGames
 
         void Update()
         {
-            if (!base.IsOwner)
+            if (!isLocalPlayer)
             {
                 return;
             }
             _hud.SetActive(true);
-          //  if (Input.GetKey(KeyCode.Escape))
-          //  {
-           //     Cursor.lockState = CursorLockMode.None;
-           //     Cursor.visible = true;
-          //  }
-   
+            //  if (Input.GetKey(KeyCode.Escape))
+            //  {
+            //     Cursor.lockState = CursorLockMode.None;
+            //     Cursor.visible = true;
+            //  }
 
-                RaycastHit CroughCheck;
+
+            RaycastHit CroughCheck;
             RaycastHit ObjectCheck;
 
             if (!characterController.isGrounded && !isClimbing)
