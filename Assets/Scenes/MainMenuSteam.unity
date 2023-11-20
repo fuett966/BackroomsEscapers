@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1566,7 +1566,7 @@ GameObject:
   - component: {fileID: 2034592556}
   - component: {fileID: 2034592557}
   m_Layer: 0
-  m_Name: SteamNetworkManager
+  m_Name: NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1602,8 +1602,8 @@ MonoBehaviour:
   autoStartServerBuild: 1
   autoConnectClientBuild: 0
   sendRate: 60
-  offlineScene: Assets/Scene/MainMenuSteam.unity
-  onlineScene: Assets/Scene/LobbySteam.unity
+  offlineScene: Assets/Scenes/MainMenuSteam.unity
+  onlineScene: Assets/Scenes/LobbySteam.unity
   transport: {fileID: 2034592559}
   networkAddress: localhost
   maxConnections: 100
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1062390405692947723, guid: 9014dd49d543b3e4ca9329bfe4a3a337,
     type: 3}
-  autoCreatePlayer: 1
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3581355271483805887, guid: f0f07e56a7bc49c468fefd0430b58fed, type: 3}

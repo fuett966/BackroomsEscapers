@@ -1110,9 +1110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3171a06fe54da4d44b74a8200fc83b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   cameraMain: {fileID: 6305963463166886303}
 --- !u!114 &2104086713963158170
 MonoBehaviour:

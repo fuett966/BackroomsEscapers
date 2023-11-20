@@ -1,5 +1,5 @@
 using UnityEngine;
-using FishNet.Object;
+using Mirror;
 
 public class CameraController : NetworkBehaviour
 {
@@ -9,7 +9,7 @@ public class CameraController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
+        if (isLocalPlayer)
         {
             cameraMain.GetComponent<Camera>().enabled = true;
             cameraMain.GetComponent<AudioListener>().enabled = true;
