@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerSpawnerSender : MonoBehaviour
+using Mirror;
+public class PlayerSpawnerSender : NetworkBehaviour
 {
     [SerializeField] private GameObject characterSelector;
     [SerializeField] private ClientDataPlayer clientDataPlayer;
@@ -10,11 +10,11 @@ public class PlayerSpawnerSender : MonoBehaviour
     {
         if (clientDataPlayer.isEntity)
         {
-            LobbyManager.Instance.SpawnEntity(characterSelector);
+            LobbyManager.Instance.SpawnEntity(characterSelector, connectionToClient);
         }
         else
         {
-            LobbyManager.Instance.SpawnHuman(characterSelector);
+            LobbyManager.Instance.SpawnHuman(characterSelector, connectionToClient);
         }
     }
 }

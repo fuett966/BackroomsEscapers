@@ -39,24 +39,25 @@ public class LobbyManager : NetworkBehaviour
     {
         Instance = this;
     }
-   
-    public void SpawnHuman(GameObject characterSelectorPanel)
+    public void SpawnHuman(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
     {
 
         Debug.Log("Try spawn human");
         characterSelectorPanel.SetActive(false);
-        Spawn(0, connectionToClient, false);
+        Spawn(0, conn, false);
     }
 
-    public void SpawnEntity(GameObject characterSelectorPanel)
+
+    public void SpawnEntity(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
     {
         Debug.Log("Try spawn entity");
 
         characterSelectorPanel.SetActive(false);
-        Spawn(1, connectionToClient, true);
+        Spawn(1, conn, true);
     }
 
-    [Command(requiresAuthority = false)]
+    //[Command(requiresAuthority = false)]
+    [Server]
     void Spawn(int spawnIndex, NetworkConnectionToClient conn, bool isEntity)
     {
         Debug.Log("Spawn Method");
@@ -69,8 +70,8 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Try spawn");
         GameObject player = Instantiate(characters[spawnIndex], spawnPosition, Quaternion.identity);
         Debug.Log("Spawned: " + player);
-
-        NetworkServer.AddPlayerForConnection(connectionToClient, player);
+        NetworkServer.Spawn(player, conn);
+        //NetworkServer.AddPlayerForConnection(connectionToClient, player);
         Debug.Log("Added To Connection");
 
     }

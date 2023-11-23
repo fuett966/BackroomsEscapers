@@ -15,7 +15,7 @@ public class ScreamController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (isLocalPlayer)
+        if (isOwned)
         {
             screamSource.clip = screamSound;
         }
@@ -51,8 +51,6 @@ public class ScreamController : NetworkBehaviour
     {
         Scream();
     }
-
-    //[ServerRpc]
     public void Scream()
     {
         DealDamageToNearbyPlayers();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
+using System.Security.Principal;
 
 namespace EvolveGames
 {
@@ -147,7 +148,7 @@ namespace EvolveGames
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 return;
             }
@@ -170,7 +171,7 @@ namespace EvolveGames
 
         void Update()
         {
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 return;
             }
