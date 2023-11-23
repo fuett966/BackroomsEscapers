@@ -9103,7 +9103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1312790054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10197,6 +10197,12 @@ PrefabInstance:
       propertyPath: sceneId
       value: 444944865
       objectReference: {fileID: 0}
+    - target: {fileID: 4848819286267649616, guid: 4cdb50752b54d724484fb3ccda9cd091,
+        type: 3}
+      propertyPath: ClientPrefab
+      value: 
+      objectReference: {fileID: 4496737103717983119, guid: 457ceba3adffbf24a805171d40c3505a,
+        type: 3}
     - target: {fileID: 4848819286267649616, guid: 4cdb50752b54d724484fb3ccda9cd091,
         type: 3}
       propertyPath: _humanSpawnTransform

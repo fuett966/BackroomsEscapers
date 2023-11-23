@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using Steamworks;
+using Telepathy;
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -27,5 +28,10 @@ public class CustomNetworkManager : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
         }
+    }
+
+    public void StartGame(string SceneName)
+    {
+        ServerChangeScene(SceneName);
     }
 }

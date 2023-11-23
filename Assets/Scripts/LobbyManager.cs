@@ -31,22 +31,45 @@ public class LobbyManager : NetworkBehaviour
     [SerializeField]
     private List<GameObject> characters = new List<GameObject>();
 
+    [SerializeField]
+    private GameObject ClientPrefab;
+
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
-
 
     private void Awake()
     {
         Instance = this;
     }
+
+    private void Start()
+    {
+        SpawnClient();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void SpawnClient()
+    {
+        if (!isClient)
+        {
+            return;
+        }
+        GameObject clientObject = Instantiate(ClientPrefab);
+        Debug.Log("Spawned: " + "clientObject");
+
+        NetworkServer.Spawn(clientObject, connectionToClient);
+
+        //NetworkServer.AddPlayerForConnection(connectionToClient, clientObject);
+        //clientObject.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+        Debug.Log("Added To Connection");
+    }
+
     public void SpawnHuman(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
     {
-
         Debug.Log("Try spawn human");
         characterSelectorPanel.SetActive(false);
         Spawn(0, conn, false);
     }
-
 
     public void SpawnEntity(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
     {
@@ -73,7 +96,6 @@ public class LobbyManager : NetworkBehaviour
         NetworkServer.Spawn(player, conn);
         //NetworkServer.AddPlayerForConnection(connectionToClient, player);
         Debug.Log("Added To Connection");
-
     }
 
     [Command(requiresAuthority = false)]
