@@ -1,6 +1,4 @@
-using FishNet.Connection;
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,33 +39,43 @@ public class LobbyManager : NetworkBehaviour
     {
         Instance = this;
     }
-
+   
     public void SpawnHuman(GameObject characterSelectorPanel)
     {
+
+        Debug.Log("Try spawn human");
         characterSelectorPanel.SetActive(false);
-        Spawn(0, LocalConnection, false);
+        Spawn(0, connectionToClient, false);
     }
 
     public void SpawnEntity(GameObject characterSelectorPanel)
     {
+        Debug.Log("Try spawn entity");
+
         characterSelectorPanel.SetActive(false);
-        Spawn(1, LocalConnection, true);
+        Spawn(1, connectionToClient, true);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    void Spawn(int spawnIndex, NetworkConnection conn, bool isEntity)
+    [Command(requiresAuthority = false)]
+    void Spawn(int spawnIndex, NetworkConnectionToClient conn, bool isEntity)
     {
+        Debug.Log("Spawn Method");
         Vector3 spawnPosition;
         if (isEntity)
             spawnPosition = _entitySpawnTransform.position;
         else
             spawnPosition = _humanSpawnTransform.position;
 
+        Debug.Log("Try spawn");
         GameObject player = Instantiate(characters[spawnIndex], spawnPosition, Quaternion.identity);
-        Spawn(player, conn);
+        Debug.Log("Spawned: " + player);
+
+        NetworkServer.AddPlayerForConnection(connectionToClient, player);
+        Debug.Log("Added To Connection");
+
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Command(requiresAuthority = false)]
     public void UpdateSelectedEntity(
         LobbyManager lobbyManager,
         int amountToChange,
@@ -86,7 +94,7 @@ public class LobbyManager : NetworkBehaviour
         //     senderButton.EnableButton();
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Command(requiresAuthority = false)]
     public void UpdateSelectedHumans(
         LobbyManager lobbyManager,
         int amountToChange,
@@ -105,14 +113,14 @@ public class LobbyManager : NetworkBehaviour
             senderButton.EnableButton();
     }
 
-    [ObserversRpc]
+    [Command(requiresAuthority = false)]
     public void UpdateSelectedServ()
     {
         OnHumansValueChanged?.Invoke(playersHumans);
         OnEntityValueChanged?.Invoke(playersEntity);
     }
 
-    [ServerRpc]
+    [Command(requiresAuthority = false)]
     public void UpdateReadyPlayers(
         LobbyManager lobbyManager,
         int amountToChange,

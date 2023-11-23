@@ -1020,7 +1020,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 3367142227302165556}
+  - {fileID: 0}
   - {fileID: 4301006026362915713}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -1050,9 +1050,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3171a06fe54da4d44b74a8200fc83b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 3029390171927736081}
-  _networkObjectCache: {fileID: 3029390171927736081}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   cameraMain: {fileID: 6187260478324561080}
 --- !u!114 &4301006026362915713
 MonoBehaviour:
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3199681950848164924}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25b976fc42d782d4ab1de25662a98026, type: 3}
   m_Name: 

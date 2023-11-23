@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Object;
+using Mirror;
 public class ClientDataPlayer : NetworkBehaviour
 {
     public GameObject characterSelector;
@@ -10,7 +10,7 @@ public class ClientDataPlayer : NetworkBehaviour
     {
         base.OnStartClient();
 
-        if (!base.IsOwner)
+        if (!isLocalPlayer)
             return;
         characterSelector.SetActive(true);
     }

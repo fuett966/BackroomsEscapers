@@ -10190,7 +10190,12 @@ PrefabInstance:
     - target: {fileID: 2830014407959332827, guid: 4cdb50752b54d724484fb3ccda9cd091,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835124667596045249, guid: 4cdb50752b54d724484fb3ccda9cd091,
+        type: 3}
+      propertyPath: sceneId
+      value: 444944865
       objectReference: {fileID: 0}
     - target: {fileID: 4848819286267649616, guid: 4cdb50752b54d724484fb3ccda9cd091,
         type: 3}
@@ -10221,6 +10226,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5198125497191832424, guid: 4cdb50752b54d724484fb3ccda9cd091,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198125497191832424, guid: 4cdb50752b54d724484fb3ccda9cd091,
+        type: 3}
       propertyPath: _scenePathHash
       value: 502930398
       objectReference: {fileID: 0}
@@ -10228,6 +10238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 2160069614679697172
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198125497191832424, guid: 4cdb50752b54d724484fb3ccda9cd091,
+        type: 3}
+      propertyPath: _networkBehaviours.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5198125497191832424, guid: 4cdb50752b54d724484fb3ccda9cd091,
         type: 3}
@@ -11298,7 +11313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1659516028
 Transform:
   m_ObjectHideFlags: 0
@@ -12115,12 +12130,13 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1670084830880143730, guid: d3836de6983a40847bbaebfe573e7836,
+  playerPrefab: {fileID: 4496737103717983119, guid: 457ceba3adffbf24a805171d40c3505a,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3199681950848164924, guid: fc02a5b6c0f7ada4c95a2b873773ba6a, type: 3}
+  - {fileID: 1670084830880143730, guid: d3836de6983a40847bbaebfe573e7836, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     bufferLimit: 32

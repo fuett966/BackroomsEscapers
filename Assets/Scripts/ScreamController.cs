@@ -1,4 +1,4 @@
-using FishNet.Object;
+using Mirror;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -15,13 +15,12 @@ public class ScreamController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
+        if (isLocalPlayer)
         {
             screamSource.clip = screamSound;
         }
         else
         {
-            Debug.Log("������ ����� ���� ������ ����");
             return;
         }
     }
@@ -30,7 +29,6 @@ public class ScreamController : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("�������");
             ScreamServer();
         }
     }
@@ -43,13 +41,12 @@ public class ScreamController : NetworkBehaviour
         {
             if (col.CompareTag("Human"))
             {
-                Debug.Log("������ ��� ������� ����");
                 col.GetComponent<IDamageable>().TakeDamage(screamDamage);
             }
         }
     }
 
-    [ServerRpc]
+    [Command]
     public void ScreamServer()
     {
         Scream();

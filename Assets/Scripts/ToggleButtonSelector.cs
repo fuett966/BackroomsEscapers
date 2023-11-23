@@ -1,4 +1,4 @@
-using FishNet.Object;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -86,8 +86,6 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     public void UpdateHumansTextValues(int value)
     {
-        Debug.Log("����� ������ ��� ����������");
-        Debug.Log("����������: " + LobbyManager.Instance.playersHumans.ToString());
         Debug.Log("Value: " + value.ToString());
 
         this.humanText.text = value.ToString();

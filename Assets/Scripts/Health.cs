@@ -28,7 +28,6 @@ public class Health : MonoBehaviour, IDamageable
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log("���� ������� ����, ������ � ����: " + currentHealth + " ��");
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -39,7 +38,6 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Debug.Log("��� ����");
         anim.SetBool("Dead", true);
         gameObject.GetComponent<PlayerController>().enabled = false;
     }
