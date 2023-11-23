@@ -20,6 +20,9 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar(hook = nameof(PlayerNameUpdate))]
     public string PlayerName;
 
+    [SyncVar(hook = nameof(PlayerReadyUpdate))]
+    public bool Ready;
+
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
     {
@@ -36,6 +39,32 @@ public class PlayerObjectController : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void PlayerReadyUpdate(bool oldValue, bool newValue)
+    {
+        if (isServer)
+        {
+            this.Ready = newValue;
+        }
+        if (isClient)
+        {
+            LobbyController.Instance.UpdatePlayerList();
+        }
+    }
+
+    [Command]
+    private void CmdSetPlayerReady()
+    {
+        this.PlayerReadyUpdate(this.Ready, !this.Ready);
+    }
+
+    public void ChangeReady()
+    {
+        if (isOwned)
+        {
+            CmdSetPlayerReady();
+        }
     }
 
     public override void OnStartAuthority()

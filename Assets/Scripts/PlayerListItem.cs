@@ -15,7 +15,24 @@ public class PlayerListItem : MonoBehaviour
     public TextMeshProUGUI PlayernameTMP;
     public RawImage PlayerIcon;
 
+    public TextMeshProUGUI PlayerReadyTMP;
+    public bool Ready;
+
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
+
+    public void ChangeReadyStatus()
+    {
+        if (Ready)
+        {
+            PlayerReadyTMP.text = "Ready";
+            PlayerReadyTMP.color = Color.green;
+        }
+        else
+        {
+            PlayerReadyTMP.text = "Unready";
+            PlayerReadyTMP.color = Color.red;
+        }
+    }
 
     private void Start()
     {
@@ -70,6 +87,7 @@ public class PlayerListItem : MonoBehaviour
     public void SetPlayerValues()
     {
         PlayernameTMP.text = playerName;
+        ChangeReadyStatus();
         if (!AvatarRecieved)
         {
             GetPlayericon();

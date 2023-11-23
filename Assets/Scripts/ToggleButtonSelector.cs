@@ -21,7 +21,6 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     public bool isActivated;
 
-
     private void OnEnable()
     {
         LobbyManager.Instance.OnEntityValueChanged += UpdateEntityTextValues;
@@ -34,13 +33,26 @@ public class ToggleButtonSelector : NetworkBehaviour
         LobbyManager.Instance.OnHumansValueChanged -= UpdateHumansTextValues;
     }
 
-    private void Start()
+    // private void Start()
+    // {
+    //     _button = GetComponent<Button>();
+    // }
+
+    public override void OnStartClient()
     {
+        if (!isOwned)
+        {
+            return;
+        }
         _button = GetComponent<Button>();
     }
 
     private void Update()
     {
+        if (!isOwned)
+        {
+            return;
+        }
         humanText.text = LobbyManager.Instance.playersHumans.ToString();
         entityText.text = LobbyManager.Instance.playersEntity.ToString();
     }
@@ -59,7 +71,6 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     public void ChangeEntityValue()
     {
-
         ActiveChanger();
         if (isActivated)
         {
@@ -104,11 +115,11 @@ public class ToggleButtonSelector : NetworkBehaviour
 
     public void EnableButton()
     {
-        _button.interactable = true;
+        //_button.interactable = true;
     }
 
     public void DisableButton()
     {
-        _button.interactable = false;
+        //_button.interactable = false;
     }
 }

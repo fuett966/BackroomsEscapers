@@ -10,7 +10,7 @@ public class ClientDataPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        if (!isClient)
+        if (!isOwned)
         {
             return;
         }

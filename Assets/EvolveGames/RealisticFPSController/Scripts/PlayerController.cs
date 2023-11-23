@@ -148,7 +148,7 @@ namespace EvolveGames
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if (!isClient)
+            if (!isOwned)
             {
                 return;
             }
@@ -171,7 +171,7 @@ namespace EvolveGames
 
         void Update()
         {
-            if (!isClient)
+            if (!isOwned)
             {
                 return;
             }

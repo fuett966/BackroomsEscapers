@@ -36,7 +36,7 @@ namespace EvolveGames
         public override void OnStartClient()
         {
             base.OnStartClient();
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 return;
             }
@@ -47,7 +47,7 @@ namespace EvolveGames
 
         private void Update()
         {
-            if (!isLocalPlayer)
+            if (!isOwned)
             {
                 return;
             }

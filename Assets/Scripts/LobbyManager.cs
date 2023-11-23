@@ -33,6 +33,7 @@ public class LobbyManager : NetworkBehaviour
 
     [SerializeField]
     private GameObject ClientPrefab;
+    private GameObject clientObject;
 
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
@@ -54,7 +55,7 @@ public class LobbyManager : NetworkBehaviour
         {
             return;
         }
-        GameObject clientObject = Instantiate(ClientPrefab);
+        clientObject = Instantiate(ClientPrefab);
         Debug.Log("Spawned: " + "clientObject");
 
         NetworkServer.Spawn(clientObject, connectionToClient);
@@ -68,7 +69,7 @@ public class LobbyManager : NetworkBehaviour
     {
         Debug.Log("Try spawn human");
         characterSelectorPanel.SetActive(false);
-        Spawn(0, conn, false);
+        CmdSpawn(0, conn, false);
     }
 
     public void SpawnEntity(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
@@ -76,12 +77,12 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Try spawn entity");
 
         characterSelectorPanel.SetActive(false);
-        Spawn(1, conn, true);
+        CmdSpawn(1, conn, true);
     }
 
     //[Command(requiresAuthority = false)]
     [Server]
-    void Spawn(int spawnIndex, NetworkConnectionToClient conn, bool isEntity)
+    void CmdSpawn(int spawnIndex, NetworkConnectionToClient conn, bool isEntity)
     {
         Debug.Log("Spawn Method");
         Vector3 spawnPosition;
@@ -96,6 +97,7 @@ public class LobbyManager : NetworkBehaviour
         NetworkServer.Spawn(player, conn);
         //NetworkServer.AddPlayerForConnection(connectionToClient, player);
         Debug.Log("Added To Connection");
+        NetworkServer.Destroy(clientObject);
     }
 
     [Command(requiresAuthority = false)]

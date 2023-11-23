@@ -57,6 +57,8 @@ MonoBehaviour:
   PlayerSteamID: 0
   PlayernameTMP: {fileID: 8583026210913030957}
   PlayerIcon: {fileID: 7507546764538341970}
+  PlayerReadyTMP: {fileID: 7088574590305151004}
+  Ready: 0
 --- !u!1 &2430030192181545921
 GameObject:
   m_ObjectHideFlags: 0
