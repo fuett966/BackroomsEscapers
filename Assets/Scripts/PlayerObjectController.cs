@@ -79,7 +79,7 @@ public class PlayerObjectController : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        playerConnection = connectionToClient;
+       // playerConnection = connectionToClient;
         Debug.Log("ПлеерКон: " + playerConnection);
         Manager.AddPlayerObject(this);
         Debug.Log("Каунт при добавлении: "  + Manager.Gameplayers.Count);

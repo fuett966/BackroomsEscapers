@@ -40,6 +40,11 @@ public class CustomNetworkManager : NetworkManager
                 );
 
             NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
+            GamePlayerInstance.playerConnection = conn;
+
+            Debug.Log("ПлеерКонМенеджер: " + conn);
+
+            Debug.Log("ПлеерКонМенеджерИнстанс: " + GamePlayerInstance.playerConnection);
         }
     }
 
