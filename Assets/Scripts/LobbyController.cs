@@ -9,26 +9,24 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
 {
-    public static LobbyController Instance;
-
-    public TextMeshProUGUI LobbyNameText;
-
-    public GameObject PlayerListViewContent;
-    public GameObject PlayerListItemPrefab;
-    public GameObject LocalPlayerObject;
-
-    public ulong CurrentLobbyID;
-    public bool PlayerItemCreated = false;
+    #region Private
     private List<PlayerListItem> PlayerListItems = new List<PlayerListItem>();
     private List<PlayerObjectController> PlayerObjectControllers =
         new List<PlayerObjectController>();
-
-    public PlayerObjectController LocalPlayerController;
-
+    #endregion
+    public static LobbyController Instance;
+    public TextMeshProUGUI LobbyNameText;
+    public GameObject PlayerListViewContent;
+    public GameObject PlayerListItemPrefab;
     public Button StartGameButton;
     public TextMeshProUGUI ReadyButtonText;
-
     public GameObject clientPrefab;
+
+    [Header("Auto Initialize")]
+    public GameObject LocalPlayerObject;
+    public PlayerObjectController LocalPlayerController;
+    public ulong CurrentLobbyID;
+    public bool PlayerItemCreated = false;
 
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
@@ -45,10 +43,10 @@ public class LobbyController : MonoBehaviour
 
     private void OnEnable()
     {
-      //  if (Manager != null)
-       // {
-       //     Manager.OnStartHostEvent += CreateHostPlayerItem;
-      //  }
+        //  if (Manager != null)
+        // {
+        //     Manager.OnStartHostEvent += CreateHostPlayerItem;
+        //  }
     }
 
     private void Awake()
@@ -144,12 +142,10 @@ public class LobbyController : MonoBehaviour
 
     public void CreateHostPlayerItem()
     {
-
         if (Manager.Gameplayers.Count == 1)
             return;
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
-
             PlayerObjectControllers.Add(player);
 
             GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab as GameObject);

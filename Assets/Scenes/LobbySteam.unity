@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -380,50 +380,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114853970}
   m_CullTransparentMesh: 1
---- !u!1 &246208311
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 246208313}
-  - component: {fileID: 246208312}
-  m_Layer: 0
-  m_Name: SceneLoadManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &246208312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246208311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c754b7cdaaeac414787293f6b985a93f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &246208313
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246208311}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 832.82733, y: 562.023, z: 1.3452017}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &317600150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,14 +1505,14 @@ MonoBehaviour:
   PlayerListViewContent: {fileID: 2094839424}
   PlayerListItemPrefab: {fileID: 1743491251424173296, guid: eff63c3786591694a83bc15c7a14e53e,
     type: 3}
-  LocalPlayerObject: {fileID: 0}
-  CurrentLobbyID: 0
-  PlayerItemCreated: 0
-  LocalPlayerController: {fileID: 0}
   StartGameButton: {fileID: 414177158}
   ReadyButtonText: {fileID: 1705686537}
   clientPrefab: {fileID: 4496737103717983119, guid: 457ceba3adffbf24a805171d40c3505a,
     type: 3}
+  LocalPlayerObject: {fileID: 0}
+  LocalPlayerController: {fileID: 0}
+  CurrentLobbyID: 0
+  PlayerItemCreated: 0
 --- !u!4 &1459664509
 Transform:
   m_ObjectHideFlags: 0
@@ -2284,4 +2240,3 @@ SceneRoots:
   - {fileID: 1779028294}
   - {fileID: 534146644}
   - {fileID: 1459664509}
-  - {fileID: 246208313}
