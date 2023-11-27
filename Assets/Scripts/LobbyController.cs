@@ -216,7 +216,8 @@ public class LobbyController : MonoBehaviour
     {
         Debug.Log("Вызвался Клиент");
         foreach (PlayerObjectController player in Manager.Gameplayers)
-        {  
+        {
+            PlayerObjectControllers.Add(player);
             if (!PlayerListItems.Any(b => b.ConnectionID == player.ConnectionID))
             {
                 GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab as GameObject);

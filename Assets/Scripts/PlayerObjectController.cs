@@ -23,7 +23,7 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar(hook = nameof(PlayerReadyUpdate))]
     public bool Ready;
 
-    public NetworkConnectionToClient playerConnection;
+    public NetworkConnection playerConnection;
 
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
@@ -79,7 +79,11 @@ public class PlayerObjectController : NetworkBehaviour
 
     public override void OnStartClient()
     {
-       // playerConnection = connectionToClient;
+        if (isOwned && !isServer)
+        {
+            playerConnection = connectionToServer;
+            Debug.Log("ОвнКлиент: " + connectionToServer);
+        }
         Debug.Log("ПлеерКон: " + playerConnection);
         Manager.AddPlayerObject(this);
         Debug.Log("Каунт при добавлении: "  + Manager.Gameplayers.Count);

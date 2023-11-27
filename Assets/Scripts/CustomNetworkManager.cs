@@ -25,6 +25,7 @@ public class CustomNetworkManager : NetworkManager
             OnStartHostEvent?.Invoke();
         }
     }
+    [Server]
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (SceneManager.GetActiveScene().name == "LobbySteam")
