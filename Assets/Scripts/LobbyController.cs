@@ -48,18 +48,18 @@ public class LobbyController : MonoBehaviour
     {
         if (LobbyManager.Instance != null)
         {
-            SpawnClients();
+          //  SpawnClients();
         }
         else
         {
-            StartCoroutine(WaitLobbyManagerInitialize());
+          //  StartCoroutine(WaitLobbyManagerInitialize());
         }
         if (Manager != null)
         {
-            Manager.OnStartHostEvent += CreateHostPlayerItem;
+  //          Manager.OnStartHostEvent += CreateHostPlayerItem;
         }
     }
-
+    /*
     private void SpawnClients()
     {
         for (int i = 0; i < PlayerObjectControllers.Count; i++)
@@ -81,7 +81,7 @@ public class LobbyController : MonoBehaviour
         yield return new WaitUntil(() => LobbyManager.Instance != null);
         SpawnClients();
     }
-
+    */
     private void Awake()
     {
         if (Instance == null)
@@ -180,7 +180,7 @@ public class LobbyController : MonoBehaviour
         Debug.Log("�������: " + Manager);
         Debug.Log("�������: " + Manager);
 
-        if (Manager.Gameplayers.Count != 1)
+        if (Manager.Gameplayers.Count == 1)
             return;
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {

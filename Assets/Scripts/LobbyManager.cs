@@ -1,5 +1,6 @@
 using Mirror;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +39,18 @@ public class LobbyManager : NetworkBehaviour
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
 
+    private CustomNetworkManager manager;
+    private CustomNetworkManager Manager
+    {
+        get
+        {
+            if (manager != null)
+            {
+                return manager;
+            }
+            return manager = CustomNetworkManager.singleton as CustomNetworkManager;
+        }
+    }
     private void Awake()
     {
         Instance = this;
@@ -47,14 +60,41 @@ public class LobbyManager : NetworkBehaviour
     {
         //SpawnClient();
     }
+    private void OnEnable()
+    {
+        if(Manager != null)
+        {
+            for (int i = 0; i < Manager.Gameplayers.Count; i++)
+            {
+              NetworkServer.SetClientReady(Manager.Gameplayers[i].connectionToClient);
+                Debug.Log("ReadyChanged");
+            }
+            if (NetworkClient.ready)
+            {
+                SpawnClients(Manager.Gameplayers);
+                Debug.Log("Должен был заспавнить челов");
+            }
+            else
+           {
+                StartCoroutine(ReadyWaiter());
+           }
+        }
+    }
+    IEnumerator ReadyWaiter()
+    {
+        yield return new WaitUntil(() => NetworkClient.ready);
+        SpawnClients(Manager.Gameplayers);
+        Debug.Log("Должен был заспавнить челов Корутина");
+    }
 
-    [Server]
+    [Command(requiresAuthority =false)]
     public void SpawnClients(List<PlayerObjectController> playerList)
     {
         Debug.Log("Должны спавниться");
+        Debug.Log("Players Count: " + playerList.Count);
         for (int i = 0; i < playerList.Count; i++)
         {
-            var client = Instantiate(ClientPrefab);
+        var client = Instantiate(ClientPrefab);
             Debug.Log("При спавне конн: " + playerList[i].playerConnection);
             NetworkServer.Spawn(client, playerList[i].playerConnection);
         }
