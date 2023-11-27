@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1573,10 +1573,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034592560}
-  - component: {fileID: 2034592561}
   - component: {fileID: 2034592558}
   - component: {fileID: 2034592556}
   - component: {fileID: 2034592557}
+  - component: {fileID: 2034592561}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged

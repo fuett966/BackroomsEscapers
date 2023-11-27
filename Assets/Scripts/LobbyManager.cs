@@ -59,6 +59,7 @@ public class LobbyManager : NetworkBehaviour
             NetworkServer.Spawn(client, playerList[i].playerConnection);
         }
     }
+
     [Command(requiresAuthority = false)]
     private void SpawnClient()
     {

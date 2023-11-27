@@ -81,12 +81,12 @@ public class PlayerObjectController : NetworkBehaviour
     {
         if (isOwned && !isServer)
         {
-            playerConnection = connectionToServer;
-            Debug.Log("ОвнКлиент: " + connectionToServer);
+            playerConnection = GetComponent<NetworkIdentity>().connectionToClient;
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + connectionToServer);
         }
-        Debug.Log("ПлеерКон: " + playerConnection);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + playerConnection);
         Manager.AddPlayerObject(this);
-        Debug.Log("Каунт при добавлении: "  + Manager.Gameplayers.Count);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + Manager.Gameplayers.Count);
         LobbyController.Instance.UpdateLobbyName();
         LobbyController.Instance.UpdatePlayerList();
     }

@@ -21,7 +21,8 @@ public class LobbyController : MonoBehaviour
     public ulong CurrentLobbyID;
     public bool PlayerItemCreated = false;
     private List<PlayerListItem> PlayerListItems = new List<PlayerListItem>();
-    private List<PlayerObjectController> PlayerObjectControllers = new List<PlayerObjectController>();
+    private List<PlayerObjectController> PlayerObjectControllers =
+        new List<PlayerObjectController>();
 
     public PlayerObjectController LocalPlayerController;
 
@@ -53,7 +54,7 @@ public class LobbyController : MonoBehaviour
         {
             StartCoroutine(WaitLobbyManagerInitialize());
         }
-        if(Manager != null)
+        if (Manager != null)
         {
             Manager.OnStartHostEvent += CreateHostPlayerItem;
         }
@@ -63,25 +64,23 @@ public class LobbyController : MonoBehaviour
     {
         for (int i = 0; i < PlayerObjectControllers.Count; i++)
         {
-            Debug.Log("Кол-во: " + PlayerObjectControllers.Count);
+            Debug.Log("пїЅпїЅпїЅ-пїЅпїЅ: " + PlayerObjectControllers.Count);
             Debug.Log(PlayerObjectControllers[i].playerConnection);
-         }
+        }
         LobbyManager.Instance.SpawnClients(PlayerObjectControllers);
-       // Debug.Log("Clients");
-       // for(int i = 0; i < PlayerListItems.Count; i++)
-       // {
-       //     var client = Instantiate(clientPrefab);
-       //     NetworkServer.Spawn(client, PlayerListItems[i].connection);
-       // }
+        // Debug.Log("Clients");
+        // for(int i = 0; i < PlayerListItems.Count; i++)
+        // {
+        //     var client = Instantiate(clientPrefab);
+        //     NetworkServer.Spawn(client, PlayerListItems[i].connection);
+        // }
     }
 
     IEnumerator WaitLobbyManagerInitialize()
     {
         yield return new WaitUntil(() => LobbyManager.Instance != null);
         SpawnClients();
-            
-        }
-
+    }
 
     private void Awake()
     {
@@ -147,20 +146,20 @@ public class LobbyController : MonoBehaviour
         CurrentLobbyID = Manager.GetComponent<SteamLobby>().CurrentLobbyID;
         LobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "name");
     }
-    
+
     public void UpdatePlayerList()
     {
-       // if (!PlayerItemCreated)
+        // if (!PlayerItemCreated)
         //{
-      //      CreateHostPlayerItem(); //HOST
-       // }
+        //      CreateHostPlayerItem(); //HOST
+        // }
         if (PlayerListItems.Count < Manager.Gameplayers.Count)
         {
             CreateClientPlayerItem();
         }
         if (PlayerListItems.Count > Manager.Gameplayers.Count)
         {
-            RemovePlayerItem();
+            //RemovePlayerItem();
         }
         if (PlayerListItems.Count == Manager.Gameplayers.Count)
         {
@@ -176,21 +175,19 @@ public class LobbyController : MonoBehaviour
 
     public void CreateHostPlayerItem()
     {
-        Debug.Log("Вызвался Хост");
-        Debug.Log("Менеджер плеерс число: " + Manager.Gameplayers.Count);
-        Debug.Log("Менджер: " + Manager);
-        Debug.Log("Менджер: " + Manager);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: " + Manager.Gameplayers.Count);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + Manager);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + Manager);
 
-
-
+        if (Manager.Gameplayers.Count != 1)
+            return;
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
-            Debug.Log("Внутри 1");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ 1");
             Debug.Log(PlayerObjectControllers);
             Debug.Log(PlayerObjectControllers.Count);
             Debug.Log(player);
-
-
 
             PlayerObjectControllers.Add(player);
 
@@ -214,7 +211,7 @@ public class LobbyController : MonoBehaviour
 
     public void CreateClientPlayerItem()
     {
-        Debug.Log("Вызвался Клиент");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
             PlayerObjectControllers.Add(player);
