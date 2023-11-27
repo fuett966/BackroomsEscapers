@@ -64,11 +64,6 @@ public class LobbyManager : NetworkBehaviour
     {
         if(Manager != null)
         {
-            for (int i = 0; i < Manager.Gameplayers.Count; i++)
-            {
-              NetworkServer.SetClientReady(Manager.Gameplayers[i].connectionToClient);
-                Debug.Log("ReadyChanged");
-            }
             if (NetworkClient.ready)
             {
                 SpawnClients(Manager.Gameplayers);
@@ -97,6 +92,7 @@ public class LobbyManager : NetworkBehaviour
         var client = Instantiate(ClientPrefab);
             Debug.Log("При спавне конн: " + playerList[i].playerConnection);
             NetworkServer.Spawn(client, playerList[i].playerConnection);
+            client.GetComponent<ClientDataPlayer>().playerConnection = playerList[i].playerConnection;
         }
     }
 
@@ -117,14 +113,14 @@ public class LobbyManager : NetworkBehaviour
         Debug.Log("Added To Connection");
     }
 
-    public void SpawnHuman(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
+    public void SpawnHuman(GameObject characterSelectorPanel, ClientDataPlayer conn)
     {
         Debug.Log("Try spawn human");
         characterSelectorPanel.SetActive(false);
         CmdSpawn(0, conn, false);
     }
 
-    public void SpawnEntity(GameObject characterSelectorPanel, NetworkConnectionToClient conn)
+    public void SpawnEntity(GameObject characterSelectorPanel, ClientDataPlayer conn)
     {
         Debug.Log("Try spawn entity");
 
@@ -132,9 +128,8 @@ public class LobbyManager : NetworkBehaviour
         CmdSpawn(1, conn, true);
     }
 
-    //[Command(requiresAuthority = false)]
-    [Server]
-    void CmdSpawn(int spawnIndex, NetworkConnectionToClient conn, bool isEntity)
+    [Command(requiresAuthority = false)]
+    void CmdSpawn(int spawnIndex, ClientDataPlayer conn, bool isEntity)
     {
         Debug.Log("Spawn Method");
         Vector3 spawnPosition;
@@ -142,13 +137,8 @@ public class LobbyManager : NetworkBehaviour
             spawnPosition = _entitySpawnTransform.position;
         else
             spawnPosition = _humanSpawnTransform.position;
-
-        Debug.Log("Try spawn");
         GameObject player = Instantiate(characters[spawnIndex], spawnPosition, Quaternion.identity);
-        Debug.Log("Spawned: " + player);
-        NetworkServer.Spawn(player, conn);
-        //NetworkServer.AddPlayerForConnection(connectionToClient, player);
-        Debug.Log("Added To Connection");
+        NetworkServer.Spawn(player, conn.playerConnection);
         NetworkServer.Destroy(clientObject);
     }
 
@@ -159,7 +149,6 @@ public class LobbyManager : NetworkBehaviour
         ToggleButtonSelector senderButton
     )
     {
-        Debug.Log("������ �� ������ ������");
         UpdateSelectedServ();
         lobbyManager.playersEntity += amountToChange;
         //  GameManager.Instance.playersEntity = lobbyManager.playersEntity;

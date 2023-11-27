@@ -82,11 +82,8 @@ public class PlayerObjectController : NetworkBehaviour
         if (isOwned && !isServer)
         {
             playerConnection = GetComponent<NetworkIdentity>().connectionToClient;
-            Debug.Log("���������: " + connectionToServer);
         }
-        Debug.Log("��������: " + playerConnection);
         Manager.AddPlayerObject(this);
-        Debug.Log("����� ��� ����������: " + Manager.Gameplayers.Count);
         LobbyController.Instance.UpdateLobbyName();
         LobbyController.Instance.UpdatePlayerList();
     }

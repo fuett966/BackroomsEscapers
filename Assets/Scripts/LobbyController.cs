@@ -5,7 +5,6 @@ using Mirror;
 using Steamworks;
 using System.Linq;
 using TMPro;
-using EvolveGames;
 using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
@@ -46,42 +45,12 @@ public class LobbyController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (LobbyManager.Instance != null)
-        {
-          //  SpawnClients();
-        }
-        else
-        {
-          //  StartCoroutine(WaitLobbyManagerInitialize());
-        }
-        if (Manager != null)
-        {
-  //          Manager.OnStartHostEvent += CreateHostPlayerItem;
-        }
-    }
-    /*
-    private void SpawnClients()
-    {
-        for (int i = 0; i < PlayerObjectControllers.Count; i++)
-        {
-            Debug.Log("���-��: " + PlayerObjectControllers.Count);
-            Debug.Log(PlayerObjectControllers[i].playerConnection);
-        }
-        LobbyManager.Instance.SpawnClients(PlayerObjectControllers);
-        // Debug.Log("Clients");
-        // for(int i = 0; i < PlayerListItems.Count; i++)
-        // {
-        //     var client = Instantiate(clientPrefab);
-        //     NetworkServer.Spawn(client, PlayerListItems[i].connection);
-        // }
+      //  if (Manager != null)
+       // {
+       //     Manager.OnStartHostEvent += CreateHostPlayerItem;
+      //  }
     }
 
-    IEnumerator WaitLobbyManagerInitialize()
-    {
-        yield return new WaitUntil(() => LobbyManager.Instance != null);
-        SpawnClients();
-    }
-    */
     private void Awake()
     {
         if (Instance == null)
@@ -175,19 +144,11 @@ public class LobbyController : MonoBehaviour
 
     public void CreateHostPlayerItem()
     {
-        Debug.Log("�������� ����");
-        Debug.Log("�������� ������ �����: " + Manager.Gameplayers.Count);
-        Debug.Log("�������: " + Manager);
-        Debug.Log("�������: " + Manager);
 
         if (Manager.Gameplayers.Count == 1)
             return;
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
-            Debug.Log("������ 1");
-            Debug.Log(PlayerObjectControllers);
-            Debug.Log(PlayerObjectControllers.Count);
-            Debug.Log(player);
 
             PlayerObjectControllers.Add(player);
 
@@ -211,7 +172,6 @@ public class LobbyController : MonoBehaviour
 
     public void CreateClientPlayerItem()
     {
-        Debug.Log("�������� ������");
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
             PlayerObjectControllers.Add(player);

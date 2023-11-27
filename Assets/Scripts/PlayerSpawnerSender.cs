@@ -15,11 +15,11 @@ public class PlayerSpawnerSender : NetworkBehaviour
     {
         if (clientDataPlayer.isEntity)
         {
-            LobbyManager.Instance.SpawnEntity(characterSelector, connectionToClient);
+            LobbyManager.Instance.SpawnEntity(characterSelector, clientDataPlayer);
         }
         else
         {
-            LobbyManager.Instance.SpawnHuman(characterSelector, connectionToClient);
+            LobbyManager.Instance.SpawnHuman(characterSelector, clientDataPlayer);
         }
     }
 }

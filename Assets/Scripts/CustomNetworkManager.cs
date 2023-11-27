@@ -28,7 +28,6 @@ public class CustomNetworkManager : NetworkManager
     [Server]
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.Log("Добавил плеера");
         if (SceneManager.GetActiveScene().name == "LobbySteam")
         {
             PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
@@ -43,10 +42,6 @@ public class CustomNetworkManager : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
             GamePlayerInstance.playerConnection = conn;
-
-            Debug.Log("ПлеерКонМенеджер: " + conn);
-
-            Debug.Log("ПлеерКонМенеджерИнстанс: " + GamePlayerInstance.playerConnection);
         }
     }
 

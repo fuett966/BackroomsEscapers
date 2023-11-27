@@ -6,27 +6,17 @@ using UnityEngine;
 
 public class ScreamController : NetworkBehaviour
 {
-    public AudioClip screamSound; // ���� �����
+    public AudioClip screamSound;
 
     public AudioSource screamSource;
-    public float screamRadius = 5f; // ������ �������� �����
-    public int screamDamage = 20; // ����
+    public float screamRadius = 5f; 
+    public int screamDamage = 20; 
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (isOwned)
-        {
-            screamSource.clip = screamSound;
-        }
-        else
-        {
-            return;
-        }
-    }
 
     private void Update()
     {
+        if (!isOwned)
+            return;
         if (Input.GetKeyDown(KeyCode.F))
         {
             ScreamServer();
@@ -60,7 +50,6 @@ public class ScreamController : NetworkBehaviour
 
     void OnDrawGizmos()
     {
-        // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, screamRadius);
     }

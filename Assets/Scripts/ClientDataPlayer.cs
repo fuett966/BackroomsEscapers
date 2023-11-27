@@ -7,12 +7,11 @@ public class ClientDataPlayer : NetworkBehaviour
 {
     public GameObject characterSelector;
     public bool isEntity;
-
+    public NetworkConnection playerConnection;
     private void Start()
     {
         if (!isOwned)
         {
-            Debug.Log("Не овнер Старт");
             return;
         }
 
@@ -20,7 +19,6 @@ public class ClientDataPlayer : NetworkBehaviour
     }
     public override void OnStartClient()
     {
-        Debug.Log("Не овнер Клиент старт");
 
         if (!isOwned)
         {
@@ -31,7 +29,6 @@ public class ClientDataPlayer : NetworkBehaviour
     }
     public override void OnStartAuthority()
     {
-        Debug.Log("Авторити");
         base.OnStartAuthority();
         characterSelector.SetActive(true);
     }
