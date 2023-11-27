@@ -45,9 +45,20 @@ public class LobbyManager : NetworkBehaviour
 
     private void Start()
     {
-        SpawnClient();
+        //SpawnClient();
     }
 
+    [Server]
+    public void SpawnClients(List<PlayerObjectController> playerList)
+    {
+        Debug.Log("Должны спавниться");
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            var client = Instantiate(ClientPrefab);
+            Debug.Log("При спавне конн: " + playerList[i].playerConnection);
+            NetworkServer.Spawn(client, playerList[i].playerConnection);
+        }
+    }
     [Command(requiresAuthority = false)]
     private void SpawnClient()
     {

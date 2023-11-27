@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 using Steamworks;
 using TMPro;
 
@@ -11,6 +12,8 @@ public class PlayerListItem : MonoBehaviour
     public int ConnectionID;
     public ulong PlayerSteamID;
     private bool AvatarRecieved;
+
+    public NetworkConnection playerConnection;
 
     public TextMeshProUGUI PlayernameTMP;
     public RawImage PlayerIcon;

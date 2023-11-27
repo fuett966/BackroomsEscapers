@@ -1,17 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using Steamworks;
 using Telepathy;
+using System;
 
 public class CustomNetworkManager : NetworkManager
 {
     [SerializeField]
     private PlayerObjectController GamePlayerPrefab;
-    public List<PlayerObjectController> Gameplayers { get; } = new List<PlayerObjectController>();
 
+    public List<PlayerObjectController> Gameplayers { get ; } = new List<PlayerObjectController>();
+
+    public event Action OnStartHostEvent;
+
+    public void AddPlayerObject(PlayerObjectController playerObjectController)
+    {
+        Gameplayers.Add(playerObjectController);
+        if(Gameplayers.Count == 1)
+        {
+            OnStartHostEvent?.Invoke();
+        }
+    }
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (SceneManager.GetActiveScene().name == "LobbySteam")

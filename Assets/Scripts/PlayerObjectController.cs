@@ -23,6 +23,8 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar(hook = nameof(PlayerReadyUpdate))]
     public bool Ready;
 
+    public NetworkConnectionToClient playerConnection;
+
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
     {
@@ -77,7 +79,10 @@ public class PlayerObjectController : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        Manager.Gameplayers.Add(this);
+        playerConnection = connectionToClient;
+        Debug.Log("ПлеерКон: " + playerConnection);
+        Manager.AddPlayerObject(this);
+        Debug.Log("Каунт при добавлении: "  + Manager.Gameplayers.Count);
         LobbyController.Instance.UpdateLobbyName();
         LobbyController.Instance.UpdatePlayerList();
     }

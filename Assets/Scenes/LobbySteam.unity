@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.33694, g: 325.04984, b: 430.2193, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1555,6 +1555,8 @@ MonoBehaviour:
   LocalPlayerController: {fileID: 0}
   StartGameButton: {fileID: 414177158}
   ReadyButtonText: {fileID: 1705686537}
+  clientPrefab: {fileID: 4496737103717983119, guid: 457ceba3adffbf24a805171d40c3505a,
+    type: 3}
 --- !u!4 &1459664509
 Transform:
   m_ObjectHideFlags: 0

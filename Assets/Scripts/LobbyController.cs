@@ -21,10 +21,14 @@ public class LobbyController : MonoBehaviour
     public ulong CurrentLobbyID;
     public bool PlayerItemCreated = false;
     private List<PlayerListItem> PlayerListItems = new List<PlayerListItem>();
+    private List<PlayerObjectController> PlayerObjectControllers = new List<PlayerObjectController>();
+
     public PlayerObjectController LocalPlayerController;
 
     public Button StartGameButton;
     public TextMeshProUGUI ReadyButtonText;
+
+    public GameObject clientPrefab;
 
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
@@ -39,12 +43,53 @@ public class LobbyController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (LobbyManager.Instance != null)
+        {
+            SpawnClients();
+        }
+        else
+        {
+            StartCoroutine(WaitLobbyManagerInitialize());
+        }
+        if(Manager != null)
+        {
+            Manager.OnStartHostEvent += CreateHostPlayerItem;
+        }
+    }
+
+    private void SpawnClients()
+    {
+        for (int i = 0; i < PlayerObjectControllers.Count; i++)
+        {
+            Debug.Log("Кол-во: " + PlayerObjectControllers.Count);
+            Debug.Log(PlayerObjectControllers[i].playerConnection);
+         }
+        LobbyManager.Instance.SpawnClients(PlayerObjectControllers);
+       // Debug.Log("Clients");
+       // for(int i = 0; i < PlayerListItems.Count; i++)
+       // {
+       //     var client = Instantiate(clientPrefab);
+       //     NetworkServer.Spawn(client, PlayerListItems[i].connection);
+       // }
+    }
+
+    IEnumerator WaitLobbyManagerInitialize()
+    {
+        yield return new WaitUntil(() => LobbyManager.Instance != null);
+        SpawnClients();
+            
+        }
+
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        DontDestroyOnLoad(Instance);
     }
 
     public void ReadyPlayer()
@@ -102,13 +147,13 @@ public class LobbyController : MonoBehaviour
         CurrentLobbyID = Manager.GetComponent<SteamLobby>().CurrentLobbyID;
         LobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "name");
     }
-
+    
     public void UpdatePlayerList()
     {
-        if (!PlayerItemCreated)
-        {
-            CreateHostPlayerItem(); //HOST
-        }
+       // if (!PlayerItemCreated)
+        //{
+      //      CreateHostPlayerItem(); //HOST
+       // }
         if (PlayerListItems.Count < Manager.Gameplayers.Count)
         {
             CreateClientPlayerItem();
@@ -131,11 +176,28 @@ public class LobbyController : MonoBehaviour
 
     public void CreateHostPlayerItem()
     {
+        Debug.Log("Вызвался Хост");
+        Debug.Log("Менеджер плеерс число: " + Manager.Gameplayers.Count);
+        Debug.Log("Менджер: " + Manager);
+        Debug.Log("Менджер: " + Manager);
+
+
+
         foreach (PlayerObjectController player in Manager.Gameplayers)
         {
+            Debug.Log("Внутри 1");
+            Debug.Log(PlayerObjectControllers);
+            Debug.Log(PlayerObjectControllers.Count);
+            Debug.Log(player);
+
+
+
+            PlayerObjectControllers.Add(player);
+
             GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab as GameObject);
             PlayerListItem NewPlayerItemScript = NewPlayerItem.GetComponent<PlayerListItem>();
 
+            NewPlayerItemScript.playerConnection = player.playerConnection;
             NewPlayerItemScript.playerName = player.PlayerName;
             NewPlayerItemScript.ConnectionID = player.ConnectionID;
             NewPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
@@ -152,8 +214,9 @@ public class LobbyController : MonoBehaviour
 
     public void CreateClientPlayerItem()
     {
+        Debug.Log("Вызвался Клиент");
         foreach (PlayerObjectController player in Manager.Gameplayers)
-        {
+        {  
             if (!PlayerListItems.Any(b => b.ConnectionID == player.ConnectionID))
             {
                 GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab as GameObject);

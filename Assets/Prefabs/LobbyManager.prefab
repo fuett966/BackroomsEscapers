@@ -56,6 +56,8 @@ MonoBehaviour:
   _humanSpawnTransform: {fileID: 0}
   _entitySpawnTransform: {fileID: 0}
   characters: []
+  ClientPrefab: {fileID: 4496737103717983119, guid: 457ceba3adffbf24a805171d40c3505a,
+    type: 3}
 --- !u!114 &4835124667596045249
 MonoBehaviour:
   m_ObjectHideFlags: 0
