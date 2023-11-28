@@ -30,6 +30,7 @@ public class CustomNetworkManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().name == "LobbySteam")
         {
+            Debug.Log("Вошло");
             PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
 
             GamePlayerInstance.ConnectionID = conn.connectionId;
@@ -41,6 +42,27 @@ public class CustomNetworkManager : NetworkManager
                 );
 
             NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
+            GamePlayerInstance.playerConnection = conn;
+        }
+        if (SceneManager.GetActiveScene().name == "OutdoorsSceneMirror")
+        {
+            Debug.Log("Вошло 2");
+            PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
+            Debug.Log("Создал?");
+
+            /*
+            GamePlayerInstance.ConnectionID = conn.connectionId;
+            GamePlayerInstance.PlayerIDNumber = Gameplayers.Count + 1;
+            GamePlayerInstance.PlayerSteamID = (ulong)
+                SteamMatchmaking.GetLobbyMemberByIndex(
+                    (CSteamID)SteamLobby.Instance.CurrentLobbyID,
+                    Gameplayers.Count
+                );
+            */
+            Debug.Log("Хочет передать конекшн");
+
+            NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
+            Debug.Log("Передал конекшн");
             GamePlayerInstance.playerConnection = conn;
         }
     }

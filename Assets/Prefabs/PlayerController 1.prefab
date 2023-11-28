@@ -923,6 +923,7 @@ GameObject:
   - component: {fileID: 7937296919657554977}
   - component: {fileID: 247436530539686078}
   - component: {fileID: 4758132018672084363}
+  - component: {fileID: 7697036401873947997}
   - component: {fileID: 2104086713963158170}
   - component: {fileID: 84439193786584278}
   - component: {fileID: 3175301212164748008}
@@ -1114,6 +1115,22 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cameraMain: {fileID: 6305963463166886303}
+--- !u!114 &7697036401873947997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670084830880143730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d266a35f9b9efa84ea00d9d29bb35143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 4723305831865993078}
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &2104086713963158170
 MonoBehaviour:
   m_ObjectHideFlags: 0

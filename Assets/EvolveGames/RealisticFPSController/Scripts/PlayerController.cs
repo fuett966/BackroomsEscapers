@@ -129,22 +129,7 @@ namespace EvolveGames
         [SerializeField]
         private Animator _anim;
 
-        // void Start()
-        // {
-        //     characterController = GetComponent<CharacterController>();
-        //     if (Items == null && GetComponent<ItemChange>())
-        //         Items = GetComponent<ItemChange>();
-        //     cam = GetComponentInChildren<Camera>();
-        //     Cursor.lockState = CursorLockMode.Locked;
-        //     Cursor.visible = false;
-        //     InstallCroughHeight = characterController.height;
-        //     InstallCameraMovement = Camera.localPosition;
-        //     InstallFOV = cam.fieldOfView;
-        //     RunningValue = RuningSpeed;
-        //     installGravity = gravity;
-        //     WalkingValue = walkingSpeed;
-        // }
-
+        
         public override void OnStartClient()
         {
             base.OnStartClient();

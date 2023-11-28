@@ -66,7 +66,7 @@ public class LobbyManager : NetworkBehaviour
         {
             if (NetworkClient.ready)
             {
-                SpawnClients(Manager.Gameplayers);
+                SpawnClients();
                 Debug.Log("Должен был заспавнить челов");
             }
             else
@@ -78,39 +78,22 @@ public class LobbyManager : NetworkBehaviour
     IEnumerator ReadyWaiter()
     {
         yield return new WaitUntil(() => NetworkClient.ready);
-        SpawnClients(Manager.Gameplayers);
+        SpawnClients();
         Debug.Log("Должен был заспавнить челов Корутина");
     }
 
     [Command(requiresAuthority =false)]
-    public void SpawnClients(List<PlayerObjectController> playerList)
+    public void SpawnClients()
     {
         Debug.Log("Должны спавниться");
-        Debug.Log("Players Count: " + playerList.Count);
-        for (int i = 0; i < playerList.Count; i++)
+        Debug.Log("Players Count: " + Manager.Gameplayers.Count);
+        for (int i = 0; i < Manager.Gameplayers.Count; i++)
         {
         var client = Instantiate(ClientPrefab);
-            Debug.Log("При спавне конн: " + playerList[i].playerConnection);
-            NetworkServer.Spawn(client, playerList[i].playerConnection);
-            client.GetComponent<ClientDataPlayer>().playerConnection = playerList[i].playerConnection;
+            Debug.Log("При спавне конн: " + Manager.Gameplayers[i].playerConnection);
+            NetworkServer.Spawn(client, Manager.Gameplayers[i].playerConnection);
+            client.GetComponent<ClientDataPlayer>().playerConnection = Manager.Gameplayers[i].playerConnection;
         }
-    }
-
-    [Command(requiresAuthority = false)]
-    private void SpawnClient()
-    {
-        if (!isClient)
-        {
-            return;
-        }
-        clientObject = Instantiate(ClientPrefab);
-        Debug.Log("Spawned: " + "clientObject");
-
-        NetworkServer.Spawn(clientObject, connectionToClient);
-
-        //NetworkServer.AddPlayerForConnection(connectionToClient, clientObject);
-        //clientObject.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
-        Debug.Log("Added To Connection");
     }
 
     public void SpawnHuman(GameObject characterSelectorPanel, ClientDataPlayer conn)

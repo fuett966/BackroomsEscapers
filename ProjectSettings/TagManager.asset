@@ -7,7 +7,7 @@ TagManager:
   - Ladder
   - Human
   - Entity
-  - NetworkManager
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - UI
   - Hands
   - MonsterLight
-  - 
+  - Door
   - 
   - 
   - 
