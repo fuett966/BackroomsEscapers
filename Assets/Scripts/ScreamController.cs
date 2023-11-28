@@ -19,7 +19,14 @@ public class ScreamController : NetworkBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.F))
         {
-            ScreamServer();
+            if (isServer)
+            {
+                RpcScreamServer();
+            }
+            else
+            {
+                CmdScreamServer();
+            }
         }
     }
 
@@ -37,17 +44,26 @@ public class ScreamController : NetworkBehaviour
     }
 
     [Command]
-    public void ScreamServer()
+    public void CmdScreamServer()
+    {
+        RpcScreamServer();
+    }
+
+    [ClientRpc]
+    public void RpcScreamServer()
     {
         Scream();
     }
     public void Scream()
     {
         DealDamageToNearbyPlayers();
+        PlaySound();
+    }
+   private void PlaySound()
+    {
         screamSource.clip = screamSound;
         screamSource.Play();
     }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
