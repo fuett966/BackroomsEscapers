@@ -27,12 +27,12 @@ public class PlayerListItem : MonoBehaviour
     {
         if (Ready)
         {
-            PlayerReadyTMP.text = "Ready";
+            PlayerReadyTMP.text = "Готов";
             PlayerReadyTMP.color = Color.green;
         }
         else
         {
-            PlayerReadyTMP.text = "Unready";
+            PlayerReadyTMP.text = "Не готов";
             PlayerReadyTMP.color = Color.red;
         }
     }

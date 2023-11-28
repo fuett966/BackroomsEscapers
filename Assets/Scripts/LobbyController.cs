@@ -55,7 +55,7 @@ public class LobbyController : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(Instance);
+        //DontDestroyOnLoad(Instance);
     }
 
     public void ReadyPlayer()
@@ -67,11 +67,11 @@ public class LobbyController : MonoBehaviour
     {
         if (LocalPlayerController.Ready)
         {
-            ReadyButtonText.text = "Unready";
+            ReadyButtonText.text = "Не готов";
         }
         else
         {
-            ReadyButtonText.text = "Ready";
+            ReadyButtonText.text = "Готов";
         }
     }
 

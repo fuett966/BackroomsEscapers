@@ -7,6 +7,7 @@ TagManager:
   - Ladder
   - Human
   - Entity
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

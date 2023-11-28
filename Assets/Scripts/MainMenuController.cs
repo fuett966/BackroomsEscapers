@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField]
+    private GameObject hostButton;
+
+    [SerializeField]
     private GameObject startMenuPanel;
 
     [SerializeField]
@@ -13,6 +16,9 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField]
     private GameObject settingsMenuPanel;
+
+    [SerializeField]
+    private GameObject lobbiesMenuPanel;
 
     public void SwitchStartMenuPanel()
     {
@@ -29,6 +35,12 @@ public class MainMenuController : MonoBehaviour
     public void SwitchSettingsMenuPanel()
     {
         settingsMenuPanel.SetActive(!settingsMenuPanel.activeSelf);
+        //Close other menus
+    }
+
+    public void SwitchLobbiesMenuPanel()
+    {
+        lobbiesMenuPanel.SetActive(!lobbiesMenuPanel.activeSelf);
         //Close other menus
     }
 
