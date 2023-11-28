@@ -8,6 +8,7 @@ TagManager:
   - Human
   - Entity
   - Door
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Hands
   - MonsterLight
   - Door
-  - 
+  - Cube
   - 
   - 
   - 

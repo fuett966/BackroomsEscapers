@@ -179,6 +179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909352128824251907, guid: 823bc43f2828a654cbf768fa311af1f0,
         type: 3}
+      propertyPath: syncInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909352128824251907, guid: 823bc43f2828a654cbf768fa311af1f0,
+        type: 3}
       propertyPath: syncDirection
       value: 0
       objectReference: {fileID: 0}

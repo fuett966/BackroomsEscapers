@@ -924,6 +924,7 @@ GameObject:
   - component: {fileID: 247436530539686078}
   - component: {fileID: 4758132018672084363}
   - component: {fileID: 7697036401873947997}
+  - component: {fileID: -7182798528637133079}
   - component: {fileID: 2104086713963158170}
   - component: {fileID: 84439193786584278}
   - component: {fileID: 3175301212164748008}
@@ -1000,7 +1001,7 @@ MonoBehaviour:
   MovementFX: {fileID: 3068466395146390648}
   Items: {fileID: 7937296919657554977}
   walkingSpeed: 6.9
-  CroughSpeed: 3.05
+  CroughSpeed: 2.32
   RuningSpeed: 15.5
   jumpSpeed: 10.9
   lookSpeed: 1.45
@@ -1134,6 +1135,25 @@ MonoBehaviour:
   doorLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &-7182798528637133079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670084830880143730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cddf69b5883d04395f3d411cb6d7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cam: {fileID: 4723305831865993078}
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &2104086713963158170
 MonoBehaviour:
   m_ObjectHideFlags: 0
