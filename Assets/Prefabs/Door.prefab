@@ -172,6 +172,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door_low.001 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3081596262310372890, guid: 823bc43f2828a654cbf768fa311af1f0,
+        type: 3}
+      propertyPath: syncDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909352128824251907, guid: 823bc43f2828a654cbf768fa311af1f0,
+        type: 3}
+      propertyPath: syncDirection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8367073975953738109, guid: 823bc43f2828a654cbf768fa311af1f0,
         type: 3}
       propertyPath: sceneId
