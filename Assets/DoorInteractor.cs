@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
+using UnityEngine.Rendering;
 
-public class DoorInteractor : MonoBehaviour
+public class DoorInteractor : NetworkBehaviour
 {
     [SerializeField] Camera cam;
     Transform selectedDoor;
@@ -10,9 +12,14 @@ public class DoorInteractor : MonoBehaviour
     int leftDoor = 0;
     [SerializeField] LayerMask doorLayer;
 
-    void Update()
+    [Command]
+    private void CmdDoorInteract()
     {
-        //Raycast
+        DoorInteractLogic();
+    }
+
+   private void DoorInteractLogic()
+    {
         RaycastHit hit;
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 20, doorLayer))
@@ -86,6 +93,21 @@ public class DoorInteractor : MonoBehaviour
                 Destroy(dragPointGameobject);
             }
         }
+    }
+
+
+
+    void Update()
+    {
+        if (!isServer)
+        {
+            CmdDoorInteract();
+        }
+        else
+        {
+            DoorInteractLogic();
+        }
+       
     }
 }
 

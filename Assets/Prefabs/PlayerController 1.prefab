@@ -1127,6 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d266a35f9b9efa84ea00d9d29bb35143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   cam: {fileID: 4723305831865993078}
   doorLayer:
     serializedVersion: 2
