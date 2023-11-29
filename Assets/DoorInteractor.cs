@@ -4,7 +4,7 @@ using UnityEngine;
 public class DoorInteractor : NetworkBehaviour
 {
     [SerializeField] Camera cam;
-    Transform selectedDoor;
+    GameObject selectedDoor;
     GameObject dragPointGameobject;
     int leftDoor = 0;
     [SerializeField] LayerMask doorLayer;
@@ -19,17 +19,17 @@ public class DoorInteractor : NetworkBehaviour
         }
     }
     [Command]
-    private void CmdInteractHold(float delta, Transform door)
+    private void CmdInteractHold()
     {
         Debug.Log("CmdInteract");
-        ServerInteractHold(delta, door);
+        ServerInteractHold();
     }
     [ClientRpc]   
-    private void ServerInteractHold(float delta, Transform door)
+    private void ServerInteractHold()
     {
-        if (door != null)
+        if (selectedDoor != null)
         {
-            HingeJoint joint = door.GetComponent<HingeJoint>();
+            HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
             JointMotor motor = joint.motor;
             if (isHolding)
             {
@@ -107,6 +107,27 @@ public class DoorInteractor : NetworkBehaviour
     }
     private void LocalInteract()
     {
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("MouseDown");
+            isHolding = true;
+            selectedDoor = GameObject.Find("Door");
+            //selectedDoor = hit.collider.gameObject.transform;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isHolding = false;
+        }
+        if (isServer)
+        {
+            ServerInteractHold();
+        }
+        else
+        {
+            CmdInteractHold();
+        }
+        /*
         Debug.Log("LocalInteract");
         RaycastHit hit;
 
@@ -156,7 +177,7 @@ public class DoorInteractor : NetworkBehaviour
             {
                 CmdInteractHold(delta, selectedDoor);
             }
-        }
+        }*/
     }
 }
 
