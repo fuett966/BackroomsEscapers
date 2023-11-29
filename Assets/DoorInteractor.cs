@@ -19,30 +19,42 @@ public class DoorInteractor : NetworkBehaviour
         }
     }
     [Command]
-    private void CmdInteractHold(float delta)
+    private void CmdInteractHold(float delta, Transform door)
     {
         Debug.Log("CmdInteract");
-        ServerInteractHold(delta);
+        ServerInteractHold(delta, door);
     }
     [ClientRpc]   
-    private void ServerInteractHold(float delta)
+    private void ServerInteractHold(float delta, Transform door)
     {
-        if (selectedDoor != null)
+        if (door != null)
         {
-            HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
+            HingeJoint joint = door.GetComponent<HingeJoint>();
             JointMotor motor = joint.motor;
+            if (isHolding)
+            {
+                motor.targetVelocity = 200;
+                joint.motor = motor;
+            }
+            else
+            {
+                Debug.Log("Exit");
+                motor.targetVelocity = -200;
+                joint.motor = motor;
+            }    
+            /*
             float speedMultiplier = 60000;
             Debug.Log("ServerInteract"); 
             if (isHolding)
             {
                 Debug.Log("isHolding: " + isHolding);
 
-                Debug.Log(selectedDoor);
-                if (selectedDoor.parent != null)
+                Debug.Log(door);
+                if (door.parent != null)
                 {
-                    if (Mathf.Abs(selectedDoor.parent.forward.z) > 0.5f)
+                    if (Mathf.Abs(door.parent.forward.z) > 0.5f)
                     {
-                        if (dragPointGameobject.transform.position.x > selectedDoor.position.x)
+                        if (dragPointGameobject.transform.position.x > door.position.x)
                         {
                             motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
                             Debug.Log("MotorVel: " + motor.targetVelocity);
@@ -70,7 +82,7 @@ public class DoorInteractor : NetworkBehaviour
                 }
                 else
                 {
-                    if (dragPointGameobject.transform.position.z > selectedDoor.position.z)
+                    if (dragPointGameobject.transform.position.z > door.position.z)
                     {
                         motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
                         Debug.Log("MotorVel: " + motor.targetVelocity);
@@ -88,8 +100,9 @@ public class DoorInteractor : NetworkBehaviour
                 Debug.Log("Exit");
                 motor.targetVelocity = 0;
                 joint.motor = motor;
-                selectedDoor = null;
+                door = null;
             }
+            */
         }
     }
     private void LocalInteract()
@@ -137,11 +150,11 @@ public class DoorInteractor : NetworkBehaviour
             Debug.Log("IsServer: " + isServer);
             if (isServer)
             {
-                ServerInteractHold(delta);
+                ServerInteractHold(delta, selectedDoor);
             }
             else
             {
-                CmdInteractHold(delta);
+                CmdInteractHold(delta, selectedDoor);
             }
         }
     }

@@ -28,8 +28,6 @@ public class CubeInteractor : NetworkBehaviour
         Color newColor = new Color(Random.value, Random.value, Random.value);
         cube.GetComponent<MeshRenderer>().material.color = newColor;
     }
-
-    [Client]
     private void LocalInteract()
     {
         Debug.Log("LocalInteract");

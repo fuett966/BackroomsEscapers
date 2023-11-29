@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2435339975775228055}
   - component: {fileID: 7357743117283447461}
   - component: {fileID: 1665315754356097991}
-  - component: {fileID: 7492499775751564085}
-  - component: {fileID: 4369232641233799484}
+  - component: {fileID: 4937386800393489203}
+  - component: {fileID: 1076228693024155054}
   - component: {fileID: 1415939669552687330}
   m_Layer: 8
   m_Name: Door_low.001 (1)
@@ -176,7 +176,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0011459191, y: 0.009340433, z: 0.022220213}
   m_Center: {x: 0.0002989067, y: 0.0000000073846995, z: -0.0000000022451352}
---- !u!114 &7492499775751564085
+--- !u!114 &4937386800393489203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!114 &4369232641233799484
+--- !u!114 &1076228693024155054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

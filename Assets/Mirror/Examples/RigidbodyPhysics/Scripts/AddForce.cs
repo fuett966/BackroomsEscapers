@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Mirror.Examples.RigidbodyPhysics
@@ -9,6 +10,9 @@ namespace Mirror.Examples.RigidbodyPhysics
         public Rigidbody rigidbodyServer;
         public float force = 500f;
 
+        public GameObject door;
+
+        public event Action OnMotorValueChanged;
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -18,6 +22,7 @@ namespace Mirror.Examples.RigidbodyPhysics
         void Update()
         {
             rigidbodyServer = GameObject.Find("Server Ball A").GetComponent<Rigidbody>();
+            door = GameObject.Find("Door");
             // do we have authority over this?
             if (!rigidbody3d.isKinematic)
             {
@@ -35,25 +40,106 @@ namespace Mirror.Examples.RigidbodyPhysics
                         }
                     }
                 }
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    if (isOwned)
+                    {
+                        if (isServer)
+                        {
+                            ServerVis();
+                        }
+                        else
+                        {
+                            CmdVis();
+                        }
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    if (isOwned)
+                    {
+                        if (isServer)
+                        {
+                            ServerDoor();
+                        }
+                        else
+                        {
+                            CmdDoor();
+                        }
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    if (isOwned)
+                    {
+                        if (isServer)
+                        {
+                            ServerDoorClose();
+                        }
+                        else
+                        {
+                            CmdDoorClose();
+                        }
+                    }
+                }
             }
         }
 
         [Command]
         private void CmdForce()
         {
-           // Debug.Log(connectionToClient);
-          // rigidbodyServer.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
-          // rigidbodyServer.AddForce(Vector3.up * force);
-
-            // Debug.Log(rigidbodyServer.gameObject.GetComponent<NetworkIdentity>().isOwned);
-
             ServerForce();
         }
         [ClientRpc]
         private void ServerForce()
         {
             rigidbodyServer.AddForce(Vector3.up * force);
+            rigidbodyServer.GetComponent<MeshRenderer>().enabled = false;
             rigidbody3d.AddForce(Vector3.up * force);
         }
+        [Command]
+        private void CmdVis()
+        {
+            ServerVis();
+        }
+        [ClientRpc]
+        private void ServerVis()
+        {
+            rigidbodyServer.GetComponent<MeshRenderer>().enabled = true;
+
+        }
+
+        [Command]
+        private void CmdDoor()
+        {
+            ServerDoor();
+        }
+        [ClientRpc]
+        private void ServerDoor()
+        {
+
+            HingeJoint joint = door.GetComponent<HingeJoint>();
+            JointMotor motor = joint.motor;
+
+            motor.targetVelocity = 200;
+            joint.motor = motor;
+
+
+        }
+
+        [Command]
+        private void CmdDoorClose()
+        {
+            ServerDoorClose();
+        }
+        [ClientRpc]
+        private void ServerDoorClose()
+        {
+            HingeJoint joint = door.GetComponent<HingeJoint>();
+            JointMotor motor = joint.motor;
+            motor.targetVelocity = -200;
+            joint.motor = motor;
+        }
+
     }
 }
