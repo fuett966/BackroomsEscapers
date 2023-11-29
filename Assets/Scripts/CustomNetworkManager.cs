@@ -16,7 +16,7 @@ public class CustomNetworkManager : NetworkManager
     public List<PlayerObjectController> Gameplayers { get ; } = new List<PlayerObjectController>();
 
     public event Action OnStartHostEvent;
-
+    public event Action OnAddPlayer;
     public void AddPlayerObject(PlayerObjectController playerObjectController)
     {
         Gameplayers.Add(playerObjectController);
@@ -64,6 +64,7 @@ public class CustomNetworkManager : NetworkManager
             NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
             Debug.Log("Передал конекшн");
             GamePlayerInstance.playerConnection = conn;
+            OnAddPlayer?.Invoke();
         }
     }
 

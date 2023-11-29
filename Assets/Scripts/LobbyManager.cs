@@ -39,6 +39,7 @@ public class LobbyManager : NetworkBehaviour
     public event Action<int> OnEntityValueChanged;
     public event Action<int> OnHumansValueChanged;
 
+    private int spawnCount = 0;
     private CustomNetworkManager manager;
     private CustomNetworkManager Manager
     {
@@ -78,6 +79,7 @@ public class LobbyManager : NetworkBehaviour
     IEnumerator ReadyWaiter()
     {
         yield return new WaitUntil(() => NetworkClient.ready);
+       // Manager.OnAddPlayer += SpawnClients;
         SpawnClients();
         Debug.Log("Должен был заспавнить челов Корутина");
     }
@@ -93,6 +95,7 @@ public class LobbyManager : NetworkBehaviour
             Debug.Log("При спавне конн: " + Manager.Gameplayers[i].playerConnection);
             NetworkServer.Spawn(client, Manager.Gameplayers[i].playerConnection);
             client.GetComponent<ClientDataPlayer>().playerConnection = Manager.Gameplayers[i].playerConnection;
+           // spawnCount++;
         }
     }
 

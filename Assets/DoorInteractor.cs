@@ -24,7 +24,7 @@ public class DoorInteractor : NetworkBehaviour
         Debug.Log("CmdInteract");
         ServerInteractHold(delta);
     }
-    [ClientRpc]
+    [ClientRpc]   
     private void ServerInteractHold(float delta)
     {
         if (selectedDoor != null)
@@ -37,19 +37,36 @@ public class DoorInteractor : NetworkBehaviour
             {
                 Debug.Log("isHolding: " + isHolding);
 
-                if (Mathf.Abs(selectedDoor.parent.forward.z) > 0.5f)
+                Debug.Log(selectedDoor);
+                if (selectedDoor.parent != null)
                 {
-                    if (dragPointGameobject.transform.position.x > selectedDoor.position.x)
+                    if (Mathf.Abs(selectedDoor.parent.forward.z) > 0.5f)
+                    {
+                        if (dragPointGameobject.transform.position.x > selectedDoor.position.x)
+                        {
+                            motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
+                            Debug.Log("MotorVel: " + motor.targetVelocity);
+
+                        }
+                        else
+                        {
+                            motor.targetVelocity = delta * speedMultiplier * Time.deltaTime * leftDoor;
+                            Debug.Log("MotorVel: " + motor.targetVelocity);
+                        }
+                    }
+                     else
+                {
+                    if (dragPointGameobject.transform.position.z > selectedDoor.position.z)
                     {
                         motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
                         Debug.Log("MotorVel: " + motor.targetVelocity);
-
                     }
                     else
                     {
                         motor.targetVelocity = delta * speedMultiplier * Time.deltaTime * leftDoor;
                         Debug.Log("MotorVel: " + motor.targetVelocity);
                     }
+                }
                 }
                 else
                 {
@@ -75,8 +92,6 @@ public class DoorInteractor : NetworkBehaviour
             }
         }
     }
-
-    [Client]
     private void LocalInteract()
     {
         Debug.Log("LocalInteract");
@@ -120,11 +135,9 @@ public class DoorInteractor : NetworkBehaviour
                 Destroy(dragPointGameobject);
             }
             Debug.Log("IsServer: " + isServer);
-            if (!isServer)
+            if (isServer)
             {
-                Debug.Log("CmdInteractMustBeCalled");
-
-                CmdInteractHold(delta);
+                ServerInteractHold(delta);
             }
             else
             {
