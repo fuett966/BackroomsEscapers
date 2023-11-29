@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using EvolveGames;
-
-public class Health : MonoBehaviour, IDamageable
+using Mirror;
+public class Health : NetworkBehaviour, IDamageable
 {
     [SerializeField]
     private int maxHealth = 100;
 
-    [SerializeField]
+    [SyncVar,SerializeField]
     private int currentHealth;
 
     [SerializeField]
